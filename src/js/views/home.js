@@ -1,8 +1,10 @@
 import React from "react";
 import "../../styles/home.css";
 
-export const Home = () => (
-	<div className="text-center mt-5">
-		<h1>Trabajando en Buzzr App, vuelva mas tarde</h1>
-	</div>
-);
+export const Home = () => {
+	return(
+		<div className="text-center mt-5">
+			<h1>Trabajando en Buzzr App, vuelva mas tarde</h1>
+		</div>
+	)
+};
