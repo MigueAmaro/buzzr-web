@@ -2,7 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			token: localStorage.getItem("token") || "",
-      urlBase: "http://127.0.0.1:5000"
+			urlBase: "http://127.0.0.1:5000"
 		},
 		actions: {
 			handleLogin: async (login) => {
@@ -25,9 +25,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				}catch (error) {
 					console.log(error)
-				},
-          
-      signUp: async (email, password, nombre, apellido, username) => {
+				}
+			},
+			
+			signUp: async (email, password, nombre, apellido, username) => {
 				const store = getStore()
 				const actions = getActions()
 				if(email.trim() == "" || password.trim() == "" || nombre.trim() == "" || apellido.trim() == "" || username.trim() == ""){
@@ -65,5 +66,4 @@ const getState = ({ getStore, getActions, setStore }) => {
 			}
 		}
 	};
-};
 export default getState;
