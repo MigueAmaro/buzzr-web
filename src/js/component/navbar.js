@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
+import Login from "./Login.jsx"
 import Register from "./Register.jsx";
 
 export const Navbar = () => {
@@ -8,7 +10,9 @@ export const Navbar = () => {
 			<Link to="/">
 				<span className="navbar-brand mb-0 h1">React Boilerplate</span>
 			</Link>
+
 			<div className="ml-auto">
+				<Login />
 				<Register/>
 			</div>
 		</nav>

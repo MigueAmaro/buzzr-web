@@ -1,11 +1,33 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			urlBase: "http://127.0.0.1:5000"
+			token: localStorage.getItem("token") || "",
+      urlBase: "http://127.0.0.1:5000"
 		},
 		actions: {
-			
-			signUp: async (email, password, nombre, apellido, username) => {
+			handleLogin: async (login) => {
+				const store = getStore();
+				try {
+					const response = await fetch(`${urlBase}/login`, {
+						method: 'POST',
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify(login)
+					})
+					const data = await response.json()
+					if (response.ok) {
+						setStore({
+							...store,
+							token: data.token
+						})
+						localStorage.setItem("token", data.token)
+					}
+				}catch (error) {
+					console.log(error)
+				},
+          
+      signUp: async (email, password, nombre, apellido, username) => {
 				const store = getStore()
 				const actions = getActions()
 				if(email.trim() == "" || password.trim() == "" || nombre.trim() == "" || apellido.trim() == "" || username.trim() == ""){
@@ -39,9 +61,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.log(error)
 					}
 				}
-			},
+			},  
+			}
 		}
 	};
 };
-
 export default getState;
