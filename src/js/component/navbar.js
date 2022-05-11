@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 import Login from "./Login.jsx"
+import Register from "./Register.jsx";
 
 export const Navbar = () => {
 	return (
@@ -10,7 +12,8 @@ export const Navbar = () => {
 			</Link>
 
 			<div className="ml-auto">
-					<Login />
+				<Login />
+				<Register/>
 			</div>
 		</nav>
 	);
