@@ -2,13 +2,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			token: localStorage.getItem("token") || "",
-			urlBase: "http://127.0.0.1:5000"
+			// Cambiar la urlBase segun se necesite
+			// urlBase: "http://127.0.0.1:5000"
+			urlBase: "https://5000-migueamaro-buzzrapi-i42rbl8mdfv.ws-us44.gitpod.io"
 		},
 		actions: {
 			handleLogin: async (login) => {
 				const store = getStore();
 				try {
-					const response = await fetch(`${urlBase}/login`, {
+					const response = await fetch(`${store.urlBase}/login`, {
 						method: 'POST',
 						headers: {
 							"Content-Type": "application/json"
