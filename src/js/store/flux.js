@@ -3,8 +3,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			token: localStorage.getItem("token") || "",
 			// Cambiar la urlBase segun se necesite
-			urlBase: "http://127.0.0.1:5000"
-			// urlBase: "https://5000-migueamaro-buzzrapi-i42rbl8mdfv.ws-us44.gitpod.io"
+			// urlBase: "http://127.0.0.1:5000"
+			urlBase: "https://5000-migueamaro-buzzrapi-0zwwoy345m7.ws-us44.gitpod.io"
 		},
 		actions: {
 			handleLogin: async (login) => {
@@ -76,6 +76,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			handleLogout: () =>{
+				let store = getStore();
+				setStore({
+					...store,
+					token: ""
+				})
 				localStorage.removeItem("token")
 			},
 
