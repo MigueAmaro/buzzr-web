@@ -64,7 +64,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.log(error)
 					}
 				}
-			},  
+			},
+			handleLogout: () =>{
+				localStorage.removeItem("token")
+			}
 			}
 		}
 	};
