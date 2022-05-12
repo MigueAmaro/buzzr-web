@@ -11,10 +11,10 @@ const Register = () => {
     const [username, setUsername] = useState("")
 
     const handleUser = (event) => {
-		if (event.target.id == "correo" || event.target.id == "correo 2") {
+		if (event.target.id == "correo") {
 			setEmail(event.target.value)
 		}
-		else if (event.target.id == "contra" || event.target.id == "contra 2") {
+		else if (event.target.id == "contra") {
 			setPassword(event.target.value)
 		}
 		else if (event.target.id == "nombre") {

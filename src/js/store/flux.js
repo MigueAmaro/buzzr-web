@@ -38,6 +38,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Debe llenar todos los campos")
 				}
 				else{
+					if(actions.checkEmail(email) == false){
+						return alert("correo invalido")
+					}
+					else{
 					let data = {
 						"email": email,
 						"password": password,
@@ -68,10 +72,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.log(error)
 					}
 				}
+			}
 			},
+
 			handleLogout: () =>{
 				localStorage.removeItem("token")
+			},
+
+			checkEmail: (correo) =>{
+				let expReg = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
+				let isOk = expReg.test(correo)
+				if(!isOk){
+					return false
+				}else{
+					return true
+				}
 			}
+
 			}
 		}
 	};
