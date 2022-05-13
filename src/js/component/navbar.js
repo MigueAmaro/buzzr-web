@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext.js";
+import { useNavigate } from "react-router";
 
 import Login from "./Login.jsx"
 import Register from "./Register.jsx";
 
 export const Navbar = () => {
+	let navegar = useNavigate()
 	const { store, actions } = useContext(Context)
 	return (
 		<nav className="navbar navbar-light bg-light mb-3">
@@ -15,12 +17,23 @@ export const Navbar = () => {
 
 			<div className="ml-auto">
 				{store.token?.length > 0 ? (
-					<button 
-					type="button" 
-					className="btn btn-danger"
-					onClick={() => actions.handleLogout()}>
-						<i className="fas fa-sign-out-alt"></i>
-						</button>
+					<div>
+						<Link
+						to={`/profile`}
+						className="btn btn-primary me-2"
+						>
+							Profile
+						</Link>
+						<button 
+						type="button" 
+						className="btn btn-danger"
+						onClick={() => {
+							actions.handleLogout()
+							navegar("/")
+							}}>
+							<i className="fas fa-sign-out-alt"></i>
+							</button>
+					</div>
 				) : (
 						<>
 							<Login />
