@@ -1,12 +1,16 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
+
 		store: {
 			token: localStorage.getItem("token") || "",
 			// Cambiar la urlBase segun se necesite
-			// urlBase: "http://127.0.0.1:5000"
-			urlBase: "https://5000-migueamaro-buzzrapi-0zwwoy345m7.ws-us44.gitpod.io"
+			urlBase: "http://127.0.0.1:5000",
+			// urlBase: "https://5000-migueamaro-buzzrapi-0zwwoy345m7.ws-us44.gitpod.io",
+			id: localStorage.getItem("id") || ""
 		},
+
 		actions: {
+
 			handleLogin: async (login) => {
 				const store = getStore();
 				try {
@@ -24,6 +28,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 							token: data.token
 						})
 						localStorage.setItem("token", data.token)
+						setStore({
+							...store,
+							id: data.user_id
+						})
+						localStorage.setItem("id", data.user_id)
 					}
 				}catch (error) {
 					console.log(error)
@@ -82,6 +91,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					token: ""
 				})
 				localStorage.removeItem("token")
+				setStore({
+					...store,
+					id: ""
+				})
+				localStorage.removeItem("id")
 			},
 
 			checkEmail: (correo) =>{
@@ -92,7 +106,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}else{
 					return true
 				}
-			}
+			},
+
+			// handleUser: async () =>{
+			// 	const store = getStore()
+			// 	try{
+			// 		let response = await fetch(`${store.urlBase}/user/${store.id}`,{
+			// 			method: 'GET',
+			// 			headers:{
+			// 				"Content-Type":"application/json",
+			// 				"Authorization": `Bearer ${store.token}`
+			// 			}
+			// 		})
+			// 		if(response.ok){
+			// 			let data = await response.json()
+			// 			console.log(data)
+			// 		}
+			// 		else{
+			// 			console.log(response.json())
+			// 		}
+			// 	}
+			// 	catch(error){
+			// 		console.log(error)
+			// 	}
+			// }
 
 			}
 		}
