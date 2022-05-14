@@ -4,16 +4,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			token: localStorage.getItem("token") || "",
 			// Cambiar la urlBase segun se necesite
-			urlBase: "http://127.0.0.1:5000",
-			// urlBase: "https://5000-migueamaro-buzzrapi-0zwwoy345m7.ws-us44.gitpod.io",
-			id: localStorage.getItem("id") || "",
-			data: {}
+			// urlBase: "http://127.0.0.1:5000",
+			urlBase: "https://5000-migueamaro-buzzrapi-y3o3jumr6w6.ws-us45.gitpod.io",
+			userId: localStorage.getItem("id") || "",
+			userInfo: localStorage.getItem("userInfo") || []
 		},
 
 		actions: {
-
 			handleLogin: async (login) => {
 				const store = getStore();
+				const actions = getActions();
 				try {
 					const response = await fetch(`${store.urlBase}/login`, {
 						method: 'POST',
@@ -26,20 +26,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (response.ok) {
 						setStore({
 							...store,
-							token: data.token
-						})
-						localStorage.setItem("token", data.token)
-						setStore({
-							...store,
+							token: data.token,
 							id: data.user_id
 						})
+						localStorage.setItem("token", data.token)
 						localStorage.setItem("id", data.user_id)
 					}
 				}catch (error) {
 					console.log(error)
 				}
 			},
-			
 			signUp: async (email, password, nombre, apellido, username) => {
 				const store = getStore()
 				const actions = getActions()
@@ -84,21 +80,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			}
 			},
-
 			handleLogout: () =>{
 				let store = getStore();
 				setStore({
 					...store,
-					token: ""
-				})
-				localStorage.removeItem("token")
-				setStore({
-					...store,
+					token: "",
 					id: ""
 				})
+				localStorage.removeItem("token")
 				localStorage.removeItem("id")
+				localStorage.removeItem("userInfo")
 			},
-
 			checkEmail: (correo) =>{
 				let expReg = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
 				let isOk = expReg.test(correo)
@@ -108,13 +100,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return true
 				}
 			},
-
-			
-
 			handleUser : async () => {
 				const store = getStore()
 				try {
-					let response = await fetch(`${store.urlBase}/user/${store.id}`, {
+					let response = await fetch(`${store.urlBase}/user/${store.userId}`, {
 						method: 'GET',
 						headers: {
 							"Content-Type": "application/json",
@@ -125,14 +114,34 @@ const getState = ({ getStore, getActions, setStore }) => {
 						let data = await response.json()
 						setStore({
 							...store,
-							data: data
+							userInfo: data
 						})
-					}
-					else {
-						console.log(response.json())
+						localStorage.setItem("userInfo", JSON.stringify(store.userInfo))
 					}
 				}
 				catch (error) {
+					console.log(error)
+				}
+			},
+			handleEdit: async (info) =>{
+				let store = getStore();
+				try{
+					let response = await fetch(`${store.urlBase}/user/${store.userId}`, {
+						method: 'PUT',
+						body: JSON.stringify(info),
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": `Bearer ${store.token}`
+						}
+					})
+					if(response.ok){
+						let data = await response.json()
+						setStore({
+							...store,
+							userInfo: data
+						})
+					}
+				}catch(error){
 					console.log(error)
 				}
 			}
