@@ -4,34 +4,16 @@ import { Context } from "../store/appContext.js";
 const UserInfo = () => {
     const { store, actions } = useContext(Context)
 
-    const [info, setinfo] = useState({})
-
-    const handleUser = async () => {
-        try {
-            let response = await fetch(`${store.urlBase}/user/${store.id}`, {
-                method: 'GET',
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${store.token}`
-                }
-            })
-            if (response.ok) {
-                let data = await response.json()
-                setinfo(data)
-            }
-            else {
-                console.log(response.json())
-            }
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }
+    const [info, setinfo] = useState({
+        email: store.data.email,
+        name: store.data.first_name,
+        last_name: store.data.last_name,
+        username: store.data.username
+    })
 
     useEffect(() => {
-        handleUser()
+        actions.handleUser()
     }, [])
-
 
     return (
         <>
@@ -39,6 +21,7 @@ const UserInfo = () => {
                 <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
                     <input type="email" className="form-control" id="email" aria-describedby="emailHelp"
+                    onChange={(event) => setinfo({...info, [event.target.id]: event.target.value})}
                     value={info.email}
                     />
                 </div>
@@ -48,23 +31,26 @@ const UserInfo = () => {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label">Name</label>
-                    <input type="email" className="form-control" id="name" aria-describedby="emailHelp"
-                    value={info.first_name}
+                    <input type="text" className="form-control" id="name" aria-describedby="emailHelp"
+                    onChange={(event) => setinfo({...info, [event.target.id]: event.target.value})}
+                    value={info.name}
                     />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label">Last Name</label>
-                    <input type="email" className="form-control" id="last_name" aria-describedby="emailHelp"
+                    <input type="text" className="form-control" id="last_name" aria-describedby="emailHelp"
+                    onChange={(event) => setinfo({...info, [event.target.id]: event.target.value})}
                     value={info.last_name}
                     />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label">Username</label>
-                    <input type="email" className="form-control" id="username" aria-describedby="emailHelp"
+                    <input type="text" className="form-control" id="username" aria-describedby="emailHelp"
+                    onChange={(event) => setinfo({...info, [event.target.id]: event.target.value})}
                     value={info.username}
                     />
                 </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="button" className="btn btn-primary">Submit</button>
             </form>
         </>
     );

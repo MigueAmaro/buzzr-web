@@ -6,7 +6,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// Cambiar la urlBase segun se necesite
 			urlBase: "http://127.0.0.1:5000",
 			// urlBase: "https://5000-migueamaro-buzzrapi-0zwwoy345m7.ws-us44.gitpod.io",
-			id: localStorage.getItem("id") || ""
+			id: localStorage.getItem("id") || "",
+			data: {}
 		},
 
 		actions: {
@@ -108,28 +109,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			// handleUser: async () =>{
-			// 	const store = getStore()
-			// 	try{
-			// 		let response = await fetch(`${store.urlBase}/user/${store.id}`,{
-			// 			method: 'GET',
-			// 			headers:{
-			// 				"Content-Type":"application/json",
-			// 				"Authorization": `Bearer ${store.token}`
-			// 			}
-			// 		})
-			// 		if(response.ok){
-			// 			let data = await response.json()
-			// 			console.log(data)
-			// 		}
-			// 		else{
-			// 			console.log(response.json())
-			// 		}
-			// 	}
-			// 	catch(error){
-			// 		console.log(error)
-			// 	}
-			// }
+			
+
+			handleUser : async () => {
+				const store = getStore()
+				try {
+					let response = await fetch(`${store.urlBase}/user/${store.id}`, {
+						method: 'GET',
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": `Bearer ${store.token}`
+						}
+					})
+					if (response.ok) {
+						let data = await response.json()
+						setStore({
+							...store,
+							data: data
+						})
+					}
+					else {
+						console.log(response.json())
+					}
+				}
+				catch (error) {
+					console.log(error)
+				}
+			}
 
 			}
 		}
