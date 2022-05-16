@@ -7,7 +7,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			urlBase: "http://127.0.0.1:5000",
 			// urlBase: "https://5000-migueamaro-buzzrapi-y3o3jumr6w6.ws-us45.gitpod.io",
 			userId: localStorage.getItem("id") || "",
-			userInfo: localStorage.getItem("userInfo") || {}
+			userInfo: JSON.parse(localStorage.getItem("userInfo")) || {}
 		},
 
 		actions: {
@@ -28,7 +28,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({
 							...store,
 							token: data.token,
-							id: data.user_id
+							userId: data.user_id
 						})
 						localStorage.setItem("token", data.token)
 						localStorage.setItem("id", data.user_id)
