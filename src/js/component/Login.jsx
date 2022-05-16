@@ -15,7 +15,7 @@ const Login = () => {
         <>
             {/* Button trigger modal Login */}
             <button type="button" className="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Login
+                Log in
             </button>
 
             {/* Log in Modal */}

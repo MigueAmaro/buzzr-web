@@ -21,7 +21,7 @@ export const Navbar = () => {
 						<Link
 						to={`/profile`}
 						className="btn btn-primary me-2"
-						>
+						onClick={() => actions.handleUser()}>
 							Profile
 						</Link>
 						<button 
