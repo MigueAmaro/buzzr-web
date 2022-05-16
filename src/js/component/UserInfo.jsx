@@ -10,7 +10,7 @@ const UserInfo = () => {
         last_name: store.userInfo.last_name,
         username: store.userInfo.username
     })
-    
+
     return (
         <>
             <form>

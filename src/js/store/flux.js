@@ -4,13 +4,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			token: localStorage.getItem("token") || "",
 			// Cambiar la urlBase segun se necesite
-			// urlBase: "http://127.0.0.1:5000",
-			urlBase: "https://5000-migueamaro-buzzrapi-y3o3jumr6w6.ws-us45.gitpod.io",
+			urlBase: "http://127.0.0.1:5000",
+			// urlBase: "https://5000-migueamaro-buzzrapi-y3o3jumr6w6.ws-us45.gitpod.io",
 			userId: localStorage.getItem("id") || "",
-			userInfo: localStorage.getItem("userInfo") || []
+			userInfo: localStorage.getItem("userInfo") || {}
 		},
 
 		actions: {
+
 			handleLogin: async (login) => {
 				const store = getStore();
 				const actions = getActions();
@@ -36,6 +37,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error)
 				}
 			},
+
 			signUp: async (email, password, nombre, apellido, username) => {
 				const store = getStore()
 				const actions = getActions()
@@ -80,6 +82,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			}
 			},
+
 			handleLogout: () =>{
 				let store = getStore();
 				setStore({
@@ -91,6 +94,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.removeItem("id")
 				localStorage.removeItem("userInfo")
 			},
+
 			checkEmail: (correo) =>{
 				let expReg = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
 				let isOk = expReg.test(correo)
@@ -100,6 +104,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return true
 				}
 			},
+
 			handleUser : async () => {
 				const store = getStore()
 				try {
@@ -123,6 +128,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error)
 				}
 			},
+
 			handleEdit: async (info) =>{
 				let store = getStore();
 				try{
