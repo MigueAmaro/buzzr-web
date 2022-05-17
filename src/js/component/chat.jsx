@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 
 const endPoint = process.env.ENDPOINT;
-let socket = io.connect(`${endPoint}`);
+const id = localStorage.getItem("id")
+let socket = io.connect(`${endPoint}`, {query:`user=${id}`});
 
 const Chat = () => {
 	const [messages, setMessages] = useState(["Hello And Welcome"]);
