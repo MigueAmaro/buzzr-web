@@ -41,13 +41,14 @@ const Register = () => {
 								<h4 className="modal-title" id="exampleModalLabel">Sign up</h4>
 								<button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<form className='form-login'>
+							<form className='form-login-register'>
 								<div className="mb-3">
 									<label htmlFor="exampleInputEmail1" className="form-label login-title">Email:</label>
 									<input
 										type="email"
-										className="form-control input-login"
+										className="input-login-register"
 										id="correo"
+										placeholder="Email"
 										aria-describedby="emailHelp"
 										value={email}
 										onChange={handleUser}
@@ -57,8 +58,9 @@ const Register = () => {
 									<label htmlFor="exampleInputPassword1" className="form-label login-title">Password:</label>
 									<input
 										type="password"
-										className="form-control input-login"
+										className="input-login-register"
 										id="contra"
+										placeholder="Password"
 										value={password}
 										onChange={handleUser}
 									/>
@@ -67,8 +69,9 @@ const Register = () => {
 									<label htmlFor="exampleInputEmail1" className="form-label login-title">Nombre:</label>
 									<input
 										type="text"
-										className="form-control input-login"
+										className="input-login-register"
 										id="nombre"
+										placeholder="First Name"
 										aria-describedby="emailHelp"
 										value={nombre}
 										onChange={handleUser}
@@ -78,8 +81,9 @@ const Register = () => {
 									<label htmlFor="exampleInputEmail1" className="form-label login-title">Apellido:</label>
 									<input
 										type="text"
-										className="form-control input-login"
+										className="input-login-register"
 										id="apellido"
+										placeholder="Last Name"
 										aria-describedby="emailHelp"
 										value={apellido}
 										onChange={handleUser}
@@ -89,8 +93,9 @@ const Register = () => {
 									<label htmlFor="exampleInputEmail1" className="form-label login-title">Username:</label>
 									<input
 										type="text"
-										className="form-control input-login"
+										className="input-login-register"
 										id="username"
+										placeholder="Username"
 										aria-describedby="emailHelp"
 										value={username}
 										onChange={handleUser}

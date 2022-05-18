@@ -1,19 +1,21 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
 import Chat from "../component/chat.jsx"
 
 export const Home = () => {
-	const {store} = useContext(Context)
-	return(
+	const { store } = useContext(Context)
+	return (
 		<>
-		{store.token == "" ? 
-		<div className="text-center mt-5">
-			<h1>Trabajando en Buzzr App, vuelva mas tarde</h1>
-		</div>
-		:
-		<Chat />
-		}
+			{store.token == "" ? (
+				<div className="text-center mt-5">
+					<h1>Trabajando en Buzzr App, vuelva mas tarde</h1>
+				</div>
+			) : (
+				<Chat />
+
+			)
+			}
 		</>
 	)
 };
