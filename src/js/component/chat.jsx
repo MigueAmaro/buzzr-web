@@ -1,22 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import io from "socket.io-client";
+import {Context} from "../store/appContext"
 
 const endPoint = process.env.ENDPOINT;
 const id = localStorage.getItem("id")
 let socket = io.connect(`${endPoint}`, {query:`user=${id}`});
 
 const Chat = () => {
+	const {store, actions} = useContext(Context);
+
 	const [messages, setMessages] = useState(["Hello And Welcome"]);
 	const [message, setMessage] = useState("");
 
 	useEffect(() => {
 		getMessages();
-	}, [messages.length]);
+	}, [messages]);
 
 	const getMessages = () => {
 		socket.on("message", (msg) => {
 			setMessages([...messages, msg]);
 		});
+		actions.handleMessages()
 	};
 
 	// On Change
@@ -44,17 +48,20 @@ const Chat = () => {
 
 	return (
 		<div>
-			{messages.length > 0 &&
-				messages.map((msg) => (
-					<div key={Math.random() + Math.random() + Math.random()}>
-						<p key={Math.random() + Math.random() + Math.random()}>
-							{msg}
-						</p>
-					</div>
-				))}
+			<h1>Chat desde db:</h1>
+			<ul>
+				{store.messages == "" ? "Send a message to start a chat" : (
+					store.messages.map((msg) =>{
+					return (
+						<li key={msg.id}>{msg.username}: {msg.msg}</li>
+					)
+				}))
+				}
+			</ul>
 			<input
 				value={message}
 				name="message"
+				placeholder="Send a message"
 				onChange={(e) => onChange(e)}
 				onKeyDown={(event) => handleKeyDown(event)}
 			/>
