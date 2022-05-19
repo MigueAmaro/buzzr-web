@@ -2,6 +2,7 @@ import React, {useContext} from "react";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
 import Chat from "../component/chat.jsx"
+import PrivateChat from "../component/privateChat.jsx";
 
 export const Home = () => {
 	const {store} = useContext(Context)
@@ -12,7 +13,10 @@ export const Home = () => {
 			<h1>Trabajando en Buzzr App, vuelva mas tarde</h1>
 		</div>
 		:
-		<Chat />
+		<div>
+			{/* <Chat /> */}
+			<PrivateChat/>
+		</div>
 		}
 		</>
 	)
