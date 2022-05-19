@@ -4,7 +4,7 @@ import {Context} from "../store/appContext"
 
 const endPoint = process.env.ENDPOINT;
 const id = localStorage.getItem("id")
-let socket = io.connect(`${endPoint}`, {query:`user=${id}`});
+let privateSocket = io.connect(`${endPoint}`);
 
 const PrivateChat = () => {
     const [messages, setMessages] = useState(["Hello And Welcome"]);
@@ -13,8 +13,9 @@ const PrivateChat = () => {
 
     
     const getMessages = () => {
-        socket.on("new_private_msg", (msg) => {
-            setMessages([...messages, msg]);
+        privateSocket.on("new_private_msg", (msg) => {
+            alert(msg)
+            // setMessages([...messages, msg]);
         });
     };
     
@@ -30,7 +31,7 @@ const PrivateChat = () => {
     // On Enter
     const handleKeyDown = (event) => {
         if (event.key == "Enter") {
-            socket.emit("private_message", {'username': username, 'msg': message });
+            privateSocket.emit("private_message", {'username': username, 'msg': message });
             setMessage("");
             setUsername('');
         }
