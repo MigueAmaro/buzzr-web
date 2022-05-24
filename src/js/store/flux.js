@@ -5,7 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			token: localStorage.getItem("token") || "",
 			// Cambiar la urlBase segun se necesite
 			// urlBase: "http://127.0.0.1:5000",
-			urlBase: "https://5000-migueamaro-buzzrapi-gn3sepftge7.ws-us45.gitpod.io",
+			urlBase: "https://5000-migueamaro-buzzrapi-15so86tnewp.ws-us45.gitpod.io",
 			userId: localStorage.getItem("id") || "",
 			userInfo: JSON.parse(localStorage.getItem("userInfo")) || {},
 			messages: JSON.parse(localStorage.getItem("messages")) || []
@@ -171,7 +171,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 							...store,
 							messages: data
 						})
-						localStorage.setItem("messages", JSON.stringify(data))
 					}
 				}catch(error){
 					console.log(error)
