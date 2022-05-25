@@ -49,6 +49,7 @@ const PrivateChat = () => {
     
     useEffect(() => {
         getMessages();
+        privateSocket.emit("login", id)
     }, [messages.length]);
     
     return (

@@ -2,7 +2,7 @@ import io from "socket.io-client";
 
 const endPoint = process.env.ENDPOINT;
 const id = localStorage.getItem("id")
-let socket = io.connect(`${endPoint}`, {query:`user=${id}`});
+let socket = io.connect(`${endPoint}`, {query: `id = ${id}`})
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
@@ -38,7 +38,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						})
 						localStorage.setItem("token", data.token)
 						localStorage.setItem("id", data.user_id)
-						socket.emit("login", data.username)
+						socket.emit("connect", data.user_id)
 					}
 				}catch (error) {
 					console.log(error)
