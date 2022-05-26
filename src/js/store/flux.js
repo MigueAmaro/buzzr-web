@@ -10,7 +10,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			token: localStorage.getItem("token") || "",
 			// Cambiar la urlBase segun se necesite
-			urlBase: "http://127.0.0.1:5000",
+			urlBase: `${endPoint}`,
 			// urlBase: "https://5000-migueamaro-buzzrapi-y3o3jumr6w6.ws-us45.gitpod.io",
 			userId: localStorage.getItem("id") || "",
 			userInfo: JSON.parse(localStorage.getItem("userInfo")) || {}
@@ -38,7 +38,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						})
 						localStorage.setItem("token", data.token)
 						localStorage.setItem("id", data.user_id)
-						socket.emit("connect", data.user_id)
+						socket.emit("login", data.username)
 					}
 				}catch (error) {
 					console.log(error)
