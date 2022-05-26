@@ -14,8 +14,9 @@ const PrivateChat = () => {
     
     const getMessages = () => {
         privateSocket.on("new_private_msg", (msg) => {
+            console.log("nothing to see here")
             alert(msg)
-            // setMessages([...messages, msg]);
+            setMessages([...messages, msg]);
         });
     };
     
@@ -32,6 +33,7 @@ const PrivateChat = () => {
     const handleKeyDown = (event) => {
         if (event.key == "Enter") {
             privateSocket.emit("private_message", {'username': username, 'msg': message });
+            console.log(privateSocket.emit("private_message", {'username': username, 'msg': message }))
             setMessage("");
             setUsername('');
         }
