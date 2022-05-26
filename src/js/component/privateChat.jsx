@@ -32,7 +32,7 @@ const PrivateChat = () => {
     // On Enter
     const handleKeyDown = (event) => {
         if (event.key == "Enter") {
-            privateSocket.emit("private_message", {'username': username, 'msg': message });
+            privateSocket.emit("private_message", {'username': username, 'id': id, 'msg': message });
             console.log(privateSocket.emit("private_message", {'username': username, 'msg': message }))
             setMessage("");
             setUsername('');
