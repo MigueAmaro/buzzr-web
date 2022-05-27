@@ -5,7 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			token: localStorage.getItem("token") || "",
 			// Cambiar la urlBase segun se necesite
 			// urlBase: "http://127.0.0.1:5000",
-			urlBase: "https://5000-migueamaro-buzzrapi-15so86tnewp.ws-us45.gitpod.io",
+			urlBase: "https://5000-migueamaro-buzzrapi-j8t84hfnf2v.ws-us46.gitpod.io",
 			userId: localStorage.getItem("id") || "",
 			userInfo: JSON.parse(localStorage.getItem("userInfo")) || {},
 			messages: JSON.parse(localStorage.getItem("messages")) || []
@@ -157,6 +157,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			handleMessages: async () =>{
 				const store = getStore();
+				const actions = getActions();
 				try{
 					let response = await fetch(`${store.urlBase}/messages`, {
 						method: 'GET',
@@ -171,9 +172,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 							...store,
 							messages: data
 						})
+						actions.transformDate(store.messages)
 					}
 				}catch(error){
 					console.log(error)
+				}
+			},
+			transformDate: async (messages) => {
+				let store = getStore()
+				if(store.messages){
+					let localDateMessages = [];
+					try{
+						for (let message of messages){
+							let fecha = new Date(message.date)
+							let newDate = fecha.toLocaleTimeString();
+							message.date = newDate
+							localDateMessages.push(message)
+						}
+						setStore({
+							...store,
+							messages: localDateMessages
+						})
+						console.log(store.messages)
+						
+					}catch(error){
+						console.log(error)
+					}
 				}
 			}
 

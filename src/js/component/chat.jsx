@@ -53,7 +53,13 @@ const Chat = () => {
 				{store.messages == "" ? "Send a message to start a chat" : (
 					store.messages.map((msg) =>{
 					return (
-						<li key={msg.id}>{msg.username}: {msg.msg}</li>
+						<li key={msg.id}>
+							{msg.username}: 
+							<br/> 
+							{msg.msg}
+							<br />
+							{msg.date}
+						</li>
 					)
 				}))
 				}
