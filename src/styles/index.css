@@ -1,3 +1,23 @@
 /* 
     General Styles
 */
+
+.form-login-register{
+    margin: 0px;
+    width: 100%;
+    padding: 10px;
+}
+.input-login-register{
+    padding: 0px;
+    width: 95%;
+    margin-top: 10px;
+    border: 0px;
+    border-bottom: 1px solid black;
+    outline: none;
+}
+.login-title{
+    font-weight: bold;
+    padding: 0px;
+    margin: 0px;
+    margin-top: 10px;
+}
