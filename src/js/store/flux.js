@@ -11,9 +11,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			token: localStorage.getItem("token") || "",
 			// Cambiar la urlBase segun se necesite
 			urlBase: `${endPoint}`,
-			// urlBase: "https://5000-migueamaro-buzzrapi-y3o3jumr6w6.ws-us45.gitpod.io",
+			// urlBase: "https://5000-migueamaro-buzzrapi-y3o3jumr6w6.ws-us45.gitpod.io"
 			userId: localStorage.getItem("id") || "",
-			userInfo: JSON.parse(localStorage.getItem("userInfo")) || {}
+			userInfo: JSON.parse(localStorage.getItem("userInfo")) || {},
+			messages: JSON.parse(localStorage.getItem("messages")) || []
+
 		},
 
 		actions: {
@@ -39,6 +41,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						localStorage.setItem("token", data.token)
 						localStorage.setItem("id", data.user_id)
 						socket.emit("login", data.username)
+						actions.handleMessages()
 					}
 				}catch (error) {
 					console.log(error)
@@ -100,6 +103,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.removeItem("token")
 				localStorage.removeItem("id")
 				localStorage.removeItem("userInfo")
+				localStorage.removeItem("messages")
 			},
 
 			checkEmail: (correo) =>{
@@ -156,6 +160,51 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				}catch(error){
 					console.log(error)
+				}
+			},
+			handleMessages: async () =>{
+				const store = getStore();
+				const actions = getActions();
+				try{
+					let response = await fetch(`${store.urlBase}/messages`, {
+						method: 'GET',
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": `Bearer ${store.token}`
+						}
+					})
+					if(response.ok){
+						let data = await response.json()
+						setStore({
+							...store,
+							messages: data
+						})
+						actions.transformDate(store.messages)
+					}
+				}catch(error){
+					console.log(error)
+				}
+			},
+			transformDate: async (messages) => {
+				let store = getStore()
+				if(store.messages){
+					let localDateMessages = [];
+					try{
+						for (let message of messages){
+							let fecha = new Date(message.date)
+							let newDate = fecha.toLocaleTimeString();
+							message.date = newDate
+							localDateMessages.push(message)
+						}
+						setStore({
+							...store,
+							messages: localDateMessages
+						})
+						console.log(store.messages)
+						
+					}catch(error){
+						console.log(error)
+					}
 				}
 			}
 

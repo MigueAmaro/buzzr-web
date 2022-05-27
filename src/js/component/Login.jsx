@@ -30,10 +30,10 @@ const Login = () => {
                         <div className="modal-body">
 
                             {/* Login Form */}
-                            <div className="form-login row">
+                            <div className="form-login-register row">
                                 <p className="login-title">Email:</p>
                                 <input
-                                    className="input-login"
+                                    className="input-login-register"
                                     type="text"
                                     name="email"
                                     placeholder='Email'
@@ -41,7 +41,7 @@ const Login = () => {
 
                                 <p className="login-title">Password:</p>
                                 <input
-                                    className="input-login"
+                                    className="input-login-register"
                                     type="password"
                                     name="password"
                                     placeholder='Password'
