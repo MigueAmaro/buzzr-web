@@ -9,13 +9,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 		store: {
 			token: localStorage.getItem("token") || "",
-			// Cambiar la urlBase segun se necesite
 			urlBase: `${endPoint}`,
-			// urlBase: "https://5000-migueamaro-buzzrapi-y3o3jumr6w6.ws-us45.gitpod.io"
 			userId: localStorage.getItem("id") || "",
 			userInfo: JSON.parse(localStorage.getItem("userInfo")) || {},
-			messages: JSON.parse(localStorage.getItem("messages")) || []
-
+			messages: JSON.parse(localStorage.getItem("messages")) || [],
+			privateMessages: JSON.parse(localStorage.getItem("privateMessages")) || [],
+			allUsers: JSON.parse(localStorage.getItem("allUsers")) || [],
+			privateMessages: JSON.parse(localStorage.getItem("privateMessages")) || []
+			
 		},
 
 		actions: {
@@ -40,8 +41,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 						})
 						localStorage.setItem("token", data.token)
 						localStorage.setItem("id", data.user_id)
-						socket.emit("login", data.username)
 						actions.handleMessages()
+						actions.handleUser()
+						actions.handleAllUsers()
+						socket.emit("login", data.username)
 					}
 				}catch (error) {
 					console.log(error)
@@ -200,11 +203,44 @@ const getState = ({ getStore, getActions, setStore }) => {
 							...store,
 							messages: localDateMessages
 						})
-						console.log(store.messages)
 						
 					}catch(error){
 						console.log(error)
 					}
+				}
+			},
+			handleAllUsers: async () =>{
+				let store = getStore()
+				let response = await fetch(`${store.urlBase}/user`, {
+					method: 'GET',
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": `Bearer ${store.token}`
+					}
+				})
+				let data = await response.json()
+				setStore({
+					...store,
+					allUsers: data
+				})
+			},
+			handlePrivateMessages: async (id) =>{
+				let store = getStore();
+				let actions = getActions();
+				let response = await fetch(`${store.urlBase}/private/${id}`, {
+					method: 'GET',
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": `Bearer ${store.token}`
+					}
+				})
+				if(response.ok){
+					let data = await response.json()
+					actions.transformDate(data)
+					setStore({
+						...store,
+						privateMessages: data
+					})
 				}
 			}
 
