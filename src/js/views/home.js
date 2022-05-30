@@ -3,6 +3,8 @@ import "../../styles/home.css";
 import { Context } from "../store/appContext";
 import Chat from "../component/chat.jsx"
 import PrivateChat from "../component/privateChat.jsx";
+import { Link } from "react-router-dom";
+
 
 export const Home = () => {
 	const { store } = useContext(Context)
@@ -15,7 +17,15 @@ export const Home = () => {
 			) : (
 				<div>
 					{/* <Chat /> */}
-					<PrivateChat />
+					{/* <PrivateChat /> */}
+					<ul>
+						<li>Channels</li>
+						{store.channels.map((channel) => {
+							return (
+								<li key={channel.id}><Link to={`/channelchat/${channel.name}`}>{channel.name}</Link></li>
+							)
+						})}
+					</ul>
 				</div>
 			)
 

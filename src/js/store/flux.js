@@ -1,3 +1,4 @@
+import { getSupportInfo } from "prettier";
 import io from "socket.io-client";
 
 const endPoint = process.env.ENDPOINT;
@@ -15,8 +16,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			messages: JSON.parse(localStorage.getItem("messages")) || [],
 			privateMessages: JSON.parse(localStorage.getItem("privateMessages")) || [],
 			allUsers: JSON.parse(localStorage.getItem("allUsers")) || [],
-			privateMessages: JSON.parse(localStorage.getItem("privateMessages")) || []
-			
+			privateMessages: JSON.parse(localStorage.getItem("privateMessages")) || [],
+			channels: JSON.parse(localStorage.getItem("channels")) || []
 		},
 
 		actions: {
@@ -250,6 +251,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			handleChannels: async () => {
+				const store = getStore()
+				try{
+				let response = await fetch(`${store.urlBase}/channels`, {
+					method: 'GET',
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": `Bearer ${store.token}`
+					}
+				})
+				if(response.ok){
+					let data = await response.json()
+					setStore({
+						...store,
+						channels: data
+					})
+					localStorage.setItem("channels", JSON.stringify(data))
+				}}
+				catch(error){
+					console.log(error)
+				}
+			}
 			}
 		}
 	};

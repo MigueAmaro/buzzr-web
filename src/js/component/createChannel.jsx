@@ -44,7 +44,7 @@ const CreateChannel = () => {
                                 className="btn btn-success"
                                 data-bs-dismiss="modal"
                                 onClick={() => {
-                                    socket.emit("create_channel", {"username": store.userInfo.username, "name": channel})
+                                    socket.emit("create_channel", {"id": store.userId, "name": channel})
                                 }}
                                 >Create</button>
                         </div>
