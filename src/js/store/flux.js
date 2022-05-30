@@ -14,9 +14,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			userInfo: JSON.parse(localStorage.getItem("userInfo")) || {},
 			messages: JSON.parse(localStorage.getItem("messages")) || [],
 			privateMessages: JSON.parse(localStorage.getItem("privateMessages")) || [],
-			allUsers: JSON.parse(localStorage.getItem("allUsers")) || [],
-			privateMessages: JSON.parse(localStorage.getItem("privateMessages")) || []
-			
+			allUsers: JSON.parse(localStorage.getItem("allUsers")) || [],			
 		},
 
 		actions: {
@@ -178,11 +176,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					if(response.ok){
 						let data = await response.json()
-						setStore({
-							...store,
-							messages: data
-						})
-						actions.transformDate(store.messages)
+						actions.transformDate(data)
 					}
 				}catch(error){
 					console.log(error)
@@ -199,6 +193,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							message.date = newDate
 							localDateMessages.push(message)
 						}
+						localDateMessages.sort((a, b) => a.id - b.id)
 						setStore({
 							...store,
 							messages: localDateMessages
@@ -237,10 +232,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				if(response.ok){
 					let data = await response.json()
 					actions.transformDate(data)
-					setStore({
-						...store,
-						privateMessages: data
-					})
 				}
 			}
 
