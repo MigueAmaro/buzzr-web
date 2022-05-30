@@ -37,10 +37,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({
 							...store,
 							token: data.token,
-							userId: data.user_id
+							userId: data.user_id,
+							userInfo: data
 						})
 						localStorage.setItem("token", data.token)
 						localStorage.setItem("id", data.user_id)
+						localStorage.setItem("userInfo", JSON.stringify(data))
 						actions.handleMessages()
 						actions.handleUser()
 						actions.handleAllUsers()
@@ -165,6 +167,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error)
 				}
 			},
+
 			handleMessages: async () =>{
 				const store = getStore();
 				const actions = getActions();
@@ -188,6 +191,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error)
 				}
 			},
+
 			transformDate: async (messages) => {
 				let store = getStore()
 				if(store.messages){
@@ -209,6 +213,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				}
 			},
+
 			handleAllUsers: async () =>{
 				let store = getStore()
 				let response = await fetch(`${store.urlBase}/user`, {
@@ -224,6 +229,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					allUsers: data
 				})
 			},
+
 			handlePrivateMessages: async (id) =>{
 				let store = getStore();
 				let actions = getActions();
@@ -242,7 +248,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						privateMessages: data
 					})
 				}
-			}
+			},
 
 			}
 		}

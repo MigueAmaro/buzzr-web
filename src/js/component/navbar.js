@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 
 import Login from "./Login.jsx"
 import Register from "./Register.jsx";
+import CreateChannel from "./createChannel.jsx";
 
 export const Navbar = () => {
 	let navegar = useNavigate()
@@ -18,6 +19,7 @@ export const Navbar = () => {
 			<div className="ml-auto">
 				{store.token?.length > 0 ? (
 					<div>
+						<CreateChannel/>
 						<Link
 						to={`/profile`}
 						className="btn btn-primary me-2"
