@@ -27,7 +27,7 @@ export const Home = () => {
 						<li>Channels</li>
 						{store.channels.map((channel) => {
 							return (
-								<li key={channel.id}><Link onClick={()=>{socket.emit("join", channel.name)}} to={`/channelchat/${channel.name}`}>{channel.name}</Link></li>
+								<li key={channel.id}><Link to={`/channelchat/${channel.name}`}>{channel.name}</Link></li>
 							)
 						})}
 					</ul>

@@ -11,26 +11,46 @@ let socket = io.connect(`${endPoint}`);
 const ChannelChat = () => {
 
     const [message, setMessage] = useState("")
-	let params = useParams()
+    const [messages, setMessages] = useState([""])
+    let params = useParams()
 
     const handleKeyDown = (event) => {
         if (event.key == "Enter") {
-			socket.emit("channel_chat", {"msg": message, "channel": params.name});
-			setMessage("");
-		}
+            socket.emit("channel", { "msg": message, "channel": params.name });
+            setMessage("");
+        }
     }
 
-    socket.on("get_channel_chat", (msg) =>{
-        console.log(msg)
-    })
+    const getMessages = () => {
+        console.log("me ejecuto")
+        socket.on("mensaje", (msg) => {
+            console.log("socket.on")
+            setMessages([...messages, msg])
+        })
+    }
+
+    useEffect(() => {
+        socket.emit("join", { "channel": params.name })
+        getMessages();
+    }, [messages])
 
     return (
         <div>
-            <input 
-            value={message}
-            name="msg"
-            onChange={(e) => {setMessage(e.target.value)}}
-            onKeyDown={(e) => {handleKeyDown(e)}}
+            <div>
+                {messages.length > 0 &&
+                    messages.map((msg) => (
+                        <div key={Math.random() + Math.random() + Math.random()}>
+                            <p key={Math.random() + Math.random() + Math.random()}>
+                                {msg}
+                            </p>
+                        </div>
+                    ))}
+            </div>
+            <input
+                value={message}
+                name="message"
+                onChange={(e) => { setMessage(e.target.value) }}
+                onKeyDown={(e) => { handleKeyDown(e) }}
             ></input>
         </div>
     );
