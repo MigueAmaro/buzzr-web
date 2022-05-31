@@ -272,7 +272,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 				catch(error){
 					console.log(error)
 				}
+			},
+
+			createChannel: async (name) => {
+				const store = getStore()
+				let info = {
+					"channel": name
+				}
+				try{
+					let response = await fetch(`${store.urlBase}/createchannel`, {
+						method: 'POST',
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": `Bearer ${store.token}`
+						},
+						body: JSON.stringify(info)
+					})
+					if(response.ok){
+						console.log("channel created")
+					}
+				}
+				catch(error){
+					console.log(error)
+				}
 			}
+
 			}
 		}
 	};

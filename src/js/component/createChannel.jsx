@@ -1,9 +1,5 @@
 import React, {useState, useContext} from 'react';
 import {Context} from "../store/appContext"
-import io from "socket.io-client";
-
-const endPoint = process.env.ENDPOINT;
-let socket = io.connect(`${endPoint}`);
 
 const CreateChannel = () => {
     const [channel, setChannel] = useState("")
@@ -44,7 +40,7 @@ const CreateChannel = () => {
                                 className="btn btn-success"
                                 data-bs-dismiss="modal"
                                 onClick={() => {
-                                    socket.emit("create_channel", {"id": store.userId, "name": channel})
+                                    actions.createChannel(channel)
                                 }}
                                 >Create</button>
                         </div>
