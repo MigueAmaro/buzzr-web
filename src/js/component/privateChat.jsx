@@ -75,12 +75,11 @@ const PrivateChat = () => {
                     <div>No hay usuarios en este chat</div>
                 )}
                 <ul>
-                    {store.privateMessages.length > 0 &&
-                        store.privateMessages.map((msg) => {
-                            console.log(msg)
+                    {store.messages.length > 0 &&
+                        store.messages.map((msg) => {
                             return(
                             <li key={msg.id}>
-                                {msg.username_from}: {msg.msg}
+                                {msg.username_from}: {msg.msg}, {msg.date}
                             </li>
                             )
                         }

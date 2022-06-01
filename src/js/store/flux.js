@@ -204,6 +204,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							message.date = newDate
 							localDateMessages.push(message)
 						}
+						localDateMessages.sort((a, b) => a.id - b.id)
 						setStore({
 							...store,
 							messages: localDateMessages
@@ -244,10 +245,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				if (response.ok) {
 					let data = await response.json()
 					actions.transformDate(data)
-					setStore({
-						...store,
-						privateMessages: data
-					})
 				}
 			},
 
