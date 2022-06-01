@@ -2,12 +2,12 @@
     General Styles
 */
 
-.form-login{
+.form-login-register{
     margin: 0px;
     width: 100%;
     padding: 10px;
 }
-.input-login{
+.input-login-register{
     padding: 0px;
     width: 95%;
     margin-top: 10px;

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 
 import Login from "./Login.jsx"
 import Register from "./Register.jsx";
+import CreateChannel from "./createChannel.jsx";
 
 export const Navbar = () => {
 	let navegar = useNavigate()
@@ -18,10 +19,11 @@ export const Navbar = () => {
 			<div className="ml-auto">
 				{store.token?.length > 0 ? (
 					<div>
+						<CreateChannel/>
 						<Link
 						to={`/profile`}
 						className="btn btn-primary me-2"
-						>
+						onClick={() => actions.handleUser()}>
 							Profile
 						</Link>
 						<button 
@@ -33,6 +35,11 @@ export const Navbar = () => {
 							}}>
 							<i className="fas fa-sign-out-alt"></i>
 							</button>
+					<button type="button" className="btn btn-primary" onClick={()=>{
+						actions.handleChannels()
+					}}>
+						Get Channels
+					</button>
 					</div>
 				) : (
 						<>
