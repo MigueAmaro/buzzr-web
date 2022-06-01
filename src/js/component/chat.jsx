@@ -20,7 +20,7 @@ const Chat = () => {
 		socket.on("message", (msg) => {
 			setMessages([...messages, msg]);
 		});
-		actions.handleMessages()
+		// actions.handleMessages()
 	};
 
 	// On Change
