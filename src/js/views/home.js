@@ -8,18 +8,18 @@ export const Home = () => {
 	const { store } = useContext(Context)
 	return (
 		<>
-		{store.token == "" ? (
-     <div className="text-center mt-5">
-			<h1>Trabajando en Buzzr App, vuelva mas tarde</h1>
-		</div>
-     ) : (
-    <div>
-			{/* <Chat /> */}
-			<PrivateChat/>
-		</div>
-    )
-		
-		}
+			{store.token == "" ? (
+				<div className="text-center mt-5">
+					<h1>Trabajando en Buzzr App, vuelva mas tarde</h1>
+				</div>
+			) : (
+				<div>
+					{/* <Chat /> */}
+					<PrivateChat />
+				</div>
+			)
+
+			}
 		</>
 	)
 };
