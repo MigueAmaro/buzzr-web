@@ -306,7 +306,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 							...store,
 							channelUsers: data
 						})
-						console.log(store.channelUsers)
 					}
 				}catch(error){
 					console.log(error)
