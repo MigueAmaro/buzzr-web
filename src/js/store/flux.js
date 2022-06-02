@@ -1,4 +1,3 @@
-import { getSupportInfo } from "prettier";
 import io from "socket.io-client";
 
 const endPoint = process.env.ENDPOINT;
@@ -9,15 +8,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 
 		store: {
-			token: localStorage.getItem("token") || "",
 			urlBase: `${endPoint}`,
+			token: localStorage.getItem("token") || "",
 			userId: localStorage.getItem("id") || "",
 			userInfo: JSON.parse(localStorage.getItem("userInfo")) || {},
 			messages: JSON.parse(localStorage.getItem("messages")) || [],
-			privateMessages: JSON.parse(localStorage.getItem("privateMessages")) || [],
 			allUsers: JSON.parse(localStorage.getItem("allUsers")) || [],
-			privateMessages: JSON.parse(localStorage.getItem("privateMessages")) || [],
-			channels: JSON.parse(localStorage.getItem("channels")) || []
+			channels: JSON.parse(localStorage.getItem("channels")) || [],
+			channelUsers: JSON.parse(localStorage.getItem("channelUsers")) || []
 		},
 
 		actions: {
@@ -44,10 +42,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						localStorage.setItem("token", data.token)
 						localStorage.setItem("id", data.user_id)
 						localStorage.setItem("userInfo", JSON.stringify(data))
-						actions.handleMessages()
+						socket.emit("login", data.username)
 						actions.handleUser()
 						actions.handleAllUsers()
-						socket.emit("login", data.username)
 					}
 				} catch (error) {
 					console.log(error)
@@ -168,31 +165,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error)
 				}
 			},
-
-			// handleMessages: async () =>{
-			// 	const store = getStore();
-			// 	const actions = getActions();
-			// 	try{
-			// 		let response = await fetch(`${store.urlBase}/messages`, {
-			// 			method: 'GET',
-			// 			headers: {
-			// 				"Content-Type": "application/json",
-			// 				"Authorization": `Bearer ${store.token}`
-			// 			}
-			// 		})
-			// 		if(response.ok){
-			// 			let data = await response.json()
-			// 			setStore({
-			// 				...store,
-			// 				messages: data
-			// 			})
-			// 			actions.transformDate(store.messages)
-			// 		}
-			// 	}catch(error){
-			// 		console.log(error)
-			// 	}
-			// },
-
 			transformDate: async (messages) => {
 				let store = getStore()
 				if (store.messages) {
@@ -218,18 +190,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			handleAllUsers: async () => {
 				let store = getStore()
-				let response = await fetch(`${store.urlBase}/user`, {
-					method: 'GET',
-					headers: {
-						"Content-Type": "application/json",
-						"Authorization": `Bearer ${store.token}`
+				try {
+					let response = await fetch(`${store.urlBase}/user`, {
+						method: 'GET',
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": `Bearer ${store.token}`
+						}
+					})
+					if (response.ok) {
+						let data = await response.json()
+						setStore({
+							...store,
+							allUsers: data
+						})
 					}
-				})
-				let data = await response.json()
-				setStore({
-					...store,
-					allUsers: data
-				})
+
+				} catch (error) {
+					console.log(error)
+				}
 			},
 
 			handlePrivateMessages: async (id) => {
@@ -274,6 +253,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			createChannel: async (name) => {
 				const store = getStore()
+				const actions = getActions()
 				let info = {
 					"channel": name
 				}
@@ -287,7 +267,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						body: JSON.stringify(info)
 					})
 					if (response.ok) {
-						console.log("channel created")
+						actions.handleChannels()
 					}
 				}
 				catch (error) {
@@ -308,14 +288,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					if (response.ok) {
 						let data = await response.json()
-						setStore({
-							...store,
-							messages: data
-						})
-						actions.transformDate(store.messages)
+						actions.transformDate(data)
 					}
 				}
 				catch (error) {
+					console.log(error)
+				}
+			},
+			handleChannelUsers: async (channelname) =>{
+				let store = getStore()
+				let actions = getActions()
+				try{
+					let response = await fetch(`${store.urlBase}/user/${channelname}`)
+					if(response.ok){
+						let data = await response.json()
+						setStore({
+							...store,
+							channelUsers: data
+						})
+						console.log(store.channelUsers)
+					}
+				}catch(error){
 					console.log(error)
 				}
 			}

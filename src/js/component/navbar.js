@@ -19,34 +19,29 @@ export const Navbar = () => {
 			<div className="ml-auto">
 				{store.token?.length > 0 ? (
 					<div>
-						<CreateChannel/>
+						<CreateChannel />
 						<Link
-						to={`/profile`}
-						className="btn btn-primary me-2"
-						onClick={() => actions.handleUser()}>
+							to={`/profile`}
+							className="btn btn-primary me-2"
+							onClick={() => actions.handleUser()}>
 							Profile
 						</Link>
-						<button 
-						type="button" 
-						className="btn btn-danger"
-						onClick={() => {
-							actions.handleLogout()
-							navegar("/")
+						<button
+							type="button"
+							className="btn btn-danger"
+							onClick={() => {
+								actions.handleLogout()
+								navegar("/")
 							}}>
 							<i className="fas fa-sign-out-alt"></i>
-							</button>
-					<button type="button" className="btn btn-primary" onClick={()=>{
-						actions.handleChannels()
-					}}>
-						Get Channels
-					</button>
+						</button>
 					</div>
 				) : (
-						<>
-							<Login />
-							<Register />
-						</>
-					)}
+					<>
+						<Login />
+						<Register />
+					</>
+				)}
 			</div>
 		</nav>
 	);

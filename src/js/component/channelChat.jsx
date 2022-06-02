@@ -28,6 +28,7 @@ const ChannelChat = () => {
             setMessages([...messages, msg])
         })
         actions.handleMessages(params.name)
+        actions.handleChannelUsers(params.name)
     }
 
     useEffect(() => {
@@ -52,6 +53,7 @@ const ChannelChat = () => {
                 </div>
             <div className='bg-dark col-12 chat_body'>
                 <ul>
+                    <li>Titulo del chat: {params.name}</li>
                     {store.messages.length > 0 &&
                         store.messages.map((msg) => {
                             return (
