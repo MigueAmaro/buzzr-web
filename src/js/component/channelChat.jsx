@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import { useEffect, useContext } from 'react';
 import { Context } from '../store/appContext';
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet"
 
 
 const endPoint = process.env.ENDPOINT;
@@ -37,7 +38,10 @@ const ChannelChat = () => {
     }, [messages])
 
     return (
-        <div className='row'>
+        <div className='row d-flex justify-content'>
+            <Helmet>
+  <style>{'body {background-color: rgba(33,37,41);}'}</style>
+</Helmet>
             <div className='channel_title'>
                 <h2>{params.name}</h2>
             </div>
@@ -82,13 +86,13 @@ const ChannelChat = () => {
                     })}
                 </ul>
             </div>
-            <div className='d-flex justify-content-end'>
+            <div className='d-flex justify-content-center'>
                 <input
                     value={message}
                     name="message"
                     onChange={(e) => { setMessage(e.target.value) }}
                     onKeyDown={(e) => { handleKeyDown(e) }}
-                    type="text" className='chat_input col-6'
+                    type="text" className='chat_input col-10 mt-4'
                 ></input>
             </div>
         </div>
