@@ -1,7 +1,10 @@
 /* 
     General Styles
 */
-
+.channel_view{
+    display: flex;
+    flex-direction: row;
+}
 .form-login-register {
     margin: 0px;
     width: 100%;
