@@ -11,13 +11,15 @@ export const Navbar = () => {
 	let navegar = useNavigate()
 	const { store, actions } = useContext(Context)
 	return (
+		<>
+		{store.token?.length > 0 ? (
 		<nav className="navbar navbar-light bg-light mb-3">
 			<Link to="/">
 				<span className="navbar-brand mb-0 h1">React Boilerplate</span>
 			</Link>
 
 			<div className="ml-auto">
-				{store.token?.length > 0 ? (
+				
 					<div>
 						<CreateChannel/>
 						<Link
@@ -41,13 +43,9 @@ export const Navbar = () => {
 						Get Channels
 					</button>
 					</div>
-				) : (
-						<>
-							<Login />
-							<Register />
-						</>
-					)}
+				
 			</div>
 		</nav>
+		) : null}</>
 	);
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const NotFound = () => {
+export const NotFound = () => {  
   return (
     <div className="page-wrap d-flex flex-row align-items-center">
       <div className="container">
@@ -14,7 +14,7 @@ export const NotFound = () => {
             <Link to="/">
               <a className="btn btn-link">Back to Home</a>
             </Link>
-          </div>
+          </div> 
         </div>
       </div>
     </div>
