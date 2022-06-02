@@ -2,12 +2,13 @@
     General Styles
 */
 
-.form-login-register{
+.form-login-register {
     margin: 0px;
     width: 100%;
     padding: 10px;
 }
-.input-login-register{
+
+.input-login-register {
     padding: 0px;
     width: 95%;
     margin-top: 10px;
@@ -15,9 +16,56 @@
     border-bottom: 1px solid black;
     outline: none;
 }
-.login-title{
+
+.login-title {
     font-weight: bold;
     padding: 0px;
     margin: 0px;
     margin-top: 10px;
+}
+
+.my_messages {
+    background-color: #26272b;
+    color: #9fa2a7;
+    font-size: .8em;
+    line-height: 1.75;
+    padding: 15px 25px;
+    margin-bottom: 15px;
+    cursor: default;
+    max-width: 450px;
+    border-left: 5px green solid;
+    margin-top: 10px;
+}
+
+.other_messages {
+    background-color: #26272b;
+    color: #9fa2a7;
+    font-size: .8em;
+    line-height: 1.75;
+    padding: 15px 25px;
+    margin-bottom: 15px;
+    cursor: default;
+    max-width: 450px;
+    border-left: 5px blue solid;
+    margin-top: 10px;
+}
+
+.chat_input {
+    background-color: lightgray;
+    border-radius: 30px;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+.channel_title {
+    background-color: #4f5050;
+    color: white;
+    box-shadow: 0 5px 10px #3d3e3e;
+    padding-left: 10px;
+}
+
+.chat_body{
+    overflow-y: scroll;
+    height: 525px;
+    display: flex;
 }
