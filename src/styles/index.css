@@ -25,28 +25,32 @@
 }
 
 .my_messages {
+    display: flex;
+    justify-content: end;
+    color: white;
     background-color: #26272b;
-    color: #9fa2a7;
     font-size: .8em;
     line-height: 1.75;
     padding: 15px 25px;
     margin-bottom: 15px;
     cursor: default;
-    max-width: 450px;
+    margin-left: 300px;
     border-left: 5px green solid;
     margin-top: 10px;
 }
 
 .other_messages {
+    display: flex;
+    justify-content: start;
+    color: white;
     background-color: #26272b;
-    color: #9fa2a7;
     font-size: .8em;
     line-height: 1.75;
     padding: 15px 25px;
     margin-bottom: 15px;
     cursor: default;
-    max-width: 450px;
-    border-left: 5px blue solid;
+    margin-right: 300px;
+    border-right: 5px blue solid;
     margin-top: 10px;
 }
 
@@ -58,14 +62,17 @@
 }
 
 .channel_title {
-    background-color: #4f5050;
+    background-color: #26272b;
     color: white;
-    box-shadow: 0 5px 10px #3d3e3e;
-    padding-left: 10px;
+    padding: 20px;
 }
 
 .chat_body{
     overflow-y: scroll;
     height: 525px;
-    display: flex;
+}
+
+.channels_and_users{
+    background-color: #26272b;
+    color: white;
 }

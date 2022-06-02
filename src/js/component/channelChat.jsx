@@ -23,45 +23,63 @@ const ChannelChat = () => {
         }
     }
 
-    const getMessages = () => {
+    const getMessages = (channel) => {
         socket.on("mensaje", (msg) => {
             setMessages([...messages, msg])
         })
-        actions.handleMessages(params.name)
-        actions.handleChannelUsers(params.name)
+        actions.handleMessages(channel)
+        actions.handleChannelUsers(channel)
     }
 
     useEffect(() => {
         socket.emit("join", { "channel": params.name })
-        getMessages();
+        getMessages(params.name);
     }, [messages])
 
     return (
-        <div className='border border-danger row'>
-            <div className='col-1'>
-                {/* <ul>
+        <div className='row'>
+            <div className='channel_title'>
+                <h2>{params.name}</h2>
+            </div>
+            <div className='col-2 channels_and_users'>
+                <ul>
                     <li>Channels</li>
                     {store.channels.map((channel) => {
                         return (
-                            <li key={channel.id}><Link to={`/channelchat/${channel.name}`}>{channel.name}</Link></li>
+                            <li key={channel.id}><Link onClick={()=>{getMessages(channel.name)}} to={`/channelchat/${channel.name}`}>{channel.name}</Link></li>
                         )
                     })}
-                </ul> */}
+                </ul>
             </div>
-            <div className='channel_title'>
-                    <h2>{params.name}</h2>
-                </div>
-            <div className='bg-dark col-12 chat_body'>
+            <div className='bg-dark col-8 chat_body'>
                 <ul>
                     <li>Titulo del chat: {params.name}</li>
                     {store.messages.length > 0 &&
                         store.messages.map((msg) => {
                             return (
-                                <li key={msg.id} className={(store.userInfo.username == msg.username ? "my_messages" : "other_messages")}>
-                                    {msg.username}: {msg.msg} {msg.date}
-                                </li>
+                                <div>
+                                    {store.userInfo.username == msg.username ?
+                                        <li key={msg.id} className= "my_messages">
+                                            {msg.username}: {msg.msg} {msg.date}
+                                        </li>
+                                    :
+                                        <li key={msg.id} className="other_messages">
+                                            {msg.username}: {msg.msg} {msg.date}
+                                        </li>
+                                    }
+                                </div>
                             )
                         })}
+                </ul>
+            </div>
+            <div className='col-2 channels_and_users'>
+                <ul>
+                    <li>Users</li>
+                    {store.channelUsers.map((user) => {
+                        return (
+                            <li key={user.id}><Link to={`/privatechat`}>{user.username}</Link></li>
+                        )
+                    })}
                 </ul>
             </div>
             <div className='d-flex justify-content-end'>
