@@ -35,25 +35,28 @@ const ChannelChat = () => {
     }, [messages])
 
     return (
-        <div>
-            <div>
+        <div className=''>
+            <div className='bg-dark p-2'>
                 <ul>
                     {store.messages.length > 0 &&
                         store.messages.map((msg)=>{
                             return(
-                                <li key={msg.id}>
-                                    {msg.username}: {msg.msg}
+                                <li key={msg.id} className={(store.userInfo.username == msg.username ? "my_messages" : "other_messages")}>
+                                    {msg.username}: {msg.msg}, {msg.date}
                                 </li>
                             )
                         })}
                 </ul>
             </div>
-            <input
-                value={message}
-                name="message"
-                onChange={(e) => { setMessage(e.target.value) }}
-                onKeyDown={(e) => { handleKeyDown(e) }}
-            ></input>
+            <div className='d-flex justify-content-end'>
+                <input
+                    value={message}
+                    name="message"
+                    onChange={(e) => { setMessage(e.target.value) }}
+                    onKeyDown={(e) => { handleKeyDown(e) }}
+                    type="text" className='chat_input col-6'
+                ></input>
+            </div>
         </div>
     );
 };
