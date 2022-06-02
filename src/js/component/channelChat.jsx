@@ -93,7 +93,7 @@ const ChannelChat = () => {
                         <li>Users</li>
                         {store.channelUsers.map((user) => {
                             return (
-                                <li key={user.id}><Link to={`/privatechat`}>{user.username}</Link></li>
+                                <li key={user.id}><Link to={`/privatechat/${user.username}`}>{user.username}</Link></li>
                             )
                         })}
                     </ul>

@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import io from "socket.io-client";
 import { Context } from "../store/appContext"
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
+
 
 const endPoint = process.env.ENDPOINT;
 const id = localStorage.getItem("id")
@@ -11,38 +14,36 @@ const PrivateChat = () => {
 
     const [messages, setMessages] = useState(["Hello And Welcome"]);
     const [message, setMessage] = useState("");
-    const [username, setUsername] = useState('')
 
+    let params = useParams()
 
     const getMessages = () => {
         privateSocket.on("new_private_msg", (msg) => {
             console.log("nothing to see here")
             setMessages([...messages, msg]);
         });
+        actions.handlePrivateMessages(params.username)
     };
 
     // On Change
     const onChange = (e) => {
-        if (e.target.name == "username") {
-            setUsername(e.target.value)
-        } else {
-            setMessage(e.target.value);
-        }
+        setMessage(e.target.value);
+
     };
 
     // On Enter
     const handleKeyDown = (event) => {
         if (event.key == "Enter") {
-            privateSocket.emit("private_message", { 'username': username, 'id': id, 'msg': message });
+            privateSocket.emit("private_message", { 'username': params.username, 'id': store.userInfo.id, 'msg': message });
             setMessage("");
-            setUsername('');
+            actions.handlePrivateMessages(params.username)
         }
     };
 
     // On Click
     const onClick = () => {
         if (message !== "") {
-            socket.emit("message", message);
+            privateSocket.emit("private_message", { 'username': params.username, 'id': store.userInfo.id, 'msg': message });
             setMessage("");
         } else {
             alert("Please Add A Message");
@@ -51,50 +52,33 @@ const PrivateChat = () => {
 
     useEffect(() => {
         getMessages();
-        actions.handleAllUsers()
         privateSocket.emit("login", id)
     }, [messages]);
-
 
     return (
         <>
             <div className="d-flex">
-
-                {store.allUsers.length > 0 ? (
-                    <ul>
-                        <li>Usuarios en el chat:</li>
-                        {store.allUsers.map((user) => {
-                            return (
-                                <li
-                                    key={user.id}
-                                    onClick={() => actions.handlePrivateMessages(user.id)}>{user.username}</li>
-                            )
-                        })}
-                    </ul>
-                ) : (
-                    <div>No hay usuarios en este chat</div>
-                )}
+                <ul>
+                    <li>Channels</li>
+                    {store.channels.map((channel) => {
+                        return (
+                            <li key={channel.id}><Link onClick={() => { getMessages(channel.name) }} to={`/channelchat/${channel.name}`}>{channel.name}</Link></li>
+                        )
+                    })}
+                </ul>
                 <ul>
                     {store.messages.length > 0 &&
                         store.messages.map((msg) => {
-                            return(
-                            <li key={msg.id}>
-                                {msg.username_from}: {msg.msg}, {msg.date}
-                            </li>
+                            return (
+                                <li key={msg.id}>
+                                    {msg.username_from}: {msg.msg}, {msg.date}
+                                </li>
                             )
                         }
 
                         )}
                 </ul>
             </div>
-            <p>Username</p>
-            <input
-                className="me-2"
-                value={username}
-                name="username"
-                onChange={(e) => onChange(e)}
-                onKeyDown={(event) => handleKeyDown(event)}
-            />
             <p className="mt-2">Message</p>
             <input
                 value={message}

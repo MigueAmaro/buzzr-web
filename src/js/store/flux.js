@@ -167,7 +167,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			transformDate: async (messages) => {
 				let store = getStore()
-				if (store.messages) {
 					let localDateMessages = [];
 					try {
 						for (let message of messages) {
@@ -185,7 +184,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					} catch (error) {
 						console.log(error)
 					}
-				}
 			},
 
 			handleAllUsers: async () => {
@@ -211,10 +209,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			handlePrivateMessages: async (id) => {
+			handlePrivateMessages: async (username) => {
 				let store = getStore();
 				let actions = getActions();
-				let response = await fetch(`${store.urlBase}/private/${id}`, {
+				let response = await fetch(`${store.urlBase}/private/${username}`, {
 					method: 'GET',
 					headers: {
 						"Content-Type": "application/json",
