@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext.js";
 import { useNavigate } from "react-router";
 
-import Login from "./Login.jsx"
-import Register from "./Register.jsx";
 import CreateChannel from "./createChannel.jsx";
 
 export const Navbar = () => {
@@ -13,9 +11,9 @@ export const Navbar = () => {
 	return (
 		<>
 		{store.token?.length > 0 ? (
-		<nav className="navbar navbar-light bg-light mb-3">
+		<nav className="navbar navbar-dark bg-dark mb-3 container d-flex flex-column flex-md-row justify-content-between">
 			<Link to="/">
-				<span className="navbar-brand mb-0 h1">React Boilerplate</span>
+				<span className="navbar-brand mb-0 h1">Buzzr</span>
 			</Link>
 
 			<div className="ml-auto">
@@ -24,13 +22,13 @@ export const Navbar = () => {
 						<CreateChannel />
 						<Link
 							to={`/profile`}
-							className="btn btn-primary me-2"
+							className="btn btn-outline-success me-2"
 							onClick={() => actions.handleUser()}>
 							Profile
 						</Link>
 						<button
 							type="button"
-							className="btn btn-danger"
+							className="btn btn-outline-danger"
 							onClick={() => {
 								actions.handleLogout()
 								navegar("/")
