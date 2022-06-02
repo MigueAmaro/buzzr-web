@@ -25,8 +25,6 @@
 }
 
 .my_messages {
-    display: flex;
-    justify-content: end;
     color: white;
     background-color: #26272b;
     font-size: .8em;
@@ -37,11 +35,10 @@
     margin-left: 300px;
     border-left: 5px green solid;
     margin-top: 10px;
+    border-radius: 5px;
 }
 
 .other_messages {
-    display: flex;
-    justify-content: start;
     color: white;
     background-color: #26272b;
     font-size: .8em;
@@ -52,6 +49,7 @@
     margin-right: 300px;
     border-right: 5px blue solid;
     margin-top: 10px;
+    border-radius: 5px;
 }
 
 .chat_input {

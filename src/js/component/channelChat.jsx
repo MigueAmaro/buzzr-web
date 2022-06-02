@@ -60,12 +60,14 @@ const ChannelChat = () => {
                                 <div>
                                     {store.userInfo.username == msg.username ?
                                         <li key={msg.id} className= "my_messages">
-                                            {msg.username}: {msg.msg} {msg.date}
+                                            <div className='d-flex justify-content-end'>{msg.username}</div>
+                                            <div className='row'><div className='col-2'>{msg.date}</div> <div className='d-flex justify-content-center align-self-center col-10'>{msg.msg}</div></div>
                                         </li>
                                     :
-                                        <li key={msg.id} className="other_messages">
-                                            {msg.username}: {msg.msg} {msg.date}
-                                        </li>
+                                    <li key={msg.id} className= "other_messages">
+                                    <div className='d-flex justify-content-start'>{msg.username}</div>
+                                    <div className='row'> <div className='d-flex justify-content-center align-self-center col-10'>{msg.msg}</div><div className='col-2'>{msg.date}</div></div>
+                                </li>
                                     }
                                 </div>
                             )
