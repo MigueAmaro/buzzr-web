@@ -25,6 +25,7 @@
 }
 
 .my_messages {
+    list-style: none;
     color: white;
     background-color: #26272b;
     font-size: .8em;
@@ -39,6 +40,7 @@
 }
 
 .other_messages {
+    list-style: none;
     color: white;
     background-color: #26272b;
     font-size: .8em;
@@ -73,4 +75,9 @@
 .channels_and_users{
     background-color: #26272b;
     color: white;
+    list-style: none;
+}
+
+.send_button{
+    height: 40px;
 }

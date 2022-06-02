@@ -24,6 +24,15 @@ const ChannelChat = () => {
         }
     }
 
+    const handleClick = () =>{
+        if (message !== "") {
+            socket.emit("channel", { "msg": message, "channel": params.name, "username": store.userInfo.username });
+			setMessage("");
+		} else {
+			alert("Please Add A Message");
+		}
+    }
+
     const getMessages = (channel) => {
         socket.on("mensaje", (msg) => {
             setMessages([...messages, msg])
@@ -38,66 +47,75 @@ const ChannelChat = () => {
     }, [messages])
 
     return (
-        <div className='row d-flex justify-content'>
-            <Helmet>
-  <style>{'body {background-color: rgba(33,37,41);}'}</style>
-</Helmet>
-            <div className='channel_title'>
-                <h2>{params.name}</h2>
-            </div>
-            <div className='col-2 channels_and_users'>
-                <ul>
-                    <li>Channels</li>
-                    {store.channels.map((channel) => {
-                        return (
-                            <li key={channel.id}><Link onClick={()=>{getMessages(channel.name)}} to={`/channelchat/${channel.name}`}>{channel.name}</Link></li>
-                        )
-                    })}
-                </ul>
-            </div>
-            <div className='bg-dark col-8 chat_body'>
-                <ul>
-                    <li>Titulo del chat: {params.name}</li>
-                    {store.messages.length > 0 &&
-                        store.messages.map((msg) => {
+        <>
+            <div className='row d-flex justify-content'>
+                <Helmet>
+                    <style>{'body {background-color: rgba(33,37,41);}'}</style>
+                </Helmet>
+                <div className='channel_title'>
+                    <h2>{params.name}</h2>
+                </div>
+                <div className='col-2 channels_and_users'>
+                    <ul>
+                        <li>Channels</li>
+                        {store.channels.map((channel) => {
                             return (
-                                <div>
-                                    {store.userInfo.username == msg.username ?
-                                        <li key={msg.id} className= "my_messages">
-                                            <div className='d-flex justify-content-end'>{msg.username}</div>
-                                            <div className='row'><div className='col-2'>{msg.date}</div> <div className='d-flex justify-content-center align-self-center col-10'>{msg.msg}</div></div>
-                                        </li>
-                                    :
-                                    <li key={msg.id} className= "other_messages">
-                                    <div className='d-flex justify-content-start'>{msg.username}</div>
-                                    <div className='row'> <div className='d-flex justify-content-center align-self-center col-10'>{msg.msg}</div><div className='col-2'>{msg.date}</div></div>
-                                </li>
-                                    }
-                                </div>
+                                <li key={channel.id}><Link onClick={() => { getMessages(channel.name) }} to={`/channelchat/${channel.name}`}>{channel.name}</Link></li>
                             )
                         })}
-                </ul>
+                    </ul>
+                </div>
+                <div className='bg-dark col-8 chat_body'>
+                    <ul>
+                        <li>Titulo del chat: {params.name}</li>
+                        {store.messages.length > 0 &&
+                            store.messages.map((msg) => {
+                                return (
+                                    <div>
+                                        {store.userInfo.username == msg.username ?
+                                            <li key={msg.id} className="my_messages">
+                                                <div className='d-flex justify-content-end'>{msg.username}</div>
+                                                <div className='row'><div className='col-2'>{msg.date}</div> <div className='d-flex justify-content-center align-self-center col-10'>{msg.msg}</div></div>
+                                            </li>
+                                            :
+                                            <li key={msg.id} className="other_messages">
+                                                <div className='d-flex justify-content-start'>{msg.username}</div>
+                                                <div className='row'> <div className='d-flex justify-content-center align-self-center col-10'>{msg.msg}</div><div className='col-2'>{msg.date}</div></div>
+                                            </li>
+                                        }
+                                    </div>
+                                )
+                            })}
+                    </ul>
+                </div>
+                <div className='col-2 channels_and_users'>
+                    <ul >
+                        <li>Users</li>
+                        {store.channelUsers.map((user) => {
+                            return (
+                                <li key={user.id}><Link to={`/privatechat`}>{user.username}</Link></li>
+                            )
+                        })}
+                    </ul>
+                </div>
             </div>
-            <div className='col-2 channels_and_users'>
-                <ul>
-                    <li>Users</li>
-                    {store.channelUsers.map((user) => {
-                        return (
-                            <li key={user.id}><Link to={`/privatechat`}>{user.username}</Link></li>
-                        )
-                    })}
-                </ul>
+            <div className='row'>
+                <div className="col-2"></div>
+                <div className='col-8 d-flex justify-content-center align-items-end'>
+                    <input
+                        value={message}
+                        name="message"
+                        onChange={(e) => { setMessage(e.target.value) }}
+                        onKeyDown={(e) => { handleKeyDown(e) }}
+                        type="text" className='chat_input col-10 mt-4'
+                    ></input>
+                    <button type='button' className='send_button btn btn-outline-primary' onClick={() => {
+                        handleClick()
+                    }}><i className="far fa-paper-plane"></i></button>
+                </div>
+                <div className="col-2"></div>
             </div>
-            <div className='d-flex justify-content-center'>
-                <input
-                    value={message}
-                    name="message"
-                    onChange={(e) => { setMessage(e.target.value) }}
-                    onKeyDown={(e) => { handleKeyDown(e) }}
-                    type="text" className='chat_input col-10 mt-4'
-                ></input>
-            </div>
-        </div>
+        </>
     );
 };
 
