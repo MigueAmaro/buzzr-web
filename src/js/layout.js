@@ -27,7 +27,7 @@ const Layout = () => {
 					<Routes>
 						<Route path="/" element={<Home />} />
 						<Route path="/chat" element={<Chat />} />
-						<Route path="/privatechat" element={<PrivateChat />} />
+						<Route path="/privatechat/:username" element={<PrivateChat />} />
 						<Route path="/profile" element={<UserInfo />} />
 						<Route path="/channelchat/:name" element={<ChannelChat/>}/>
 						<Route path="*" element={<NotFound/>} />
