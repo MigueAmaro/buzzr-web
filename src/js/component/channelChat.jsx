@@ -37,7 +37,11 @@ const ChannelChat = () => {
         socket.on("mensaje", (msg) => {
             setMessages([...messages, msg])
         })
-        actions.handleMessages(channel)
+        if (!store.isLogin) {
+            actions.handleIsLogin()
+        } else {
+            actions.handleMessages(channel)
+        }
         actions.handleChannelUsers(channel)
     }
 
@@ -53,9 +57,9 @@ const ChannelChat = () => {
                     <style>{'body {background-color: rgba(33,37,41);}'}</style>
                 </Helmet>
 
-                    <div className="channel_title">
-                        <h3 className="m-0">Channel: {params.name}</h3>
-                    </div>
+                <div className="channel_title">
+                    <h3 className="m-0">Channel: {params.name}</h3>
+                </div>
 
                 <div className='channel_view'>
 
@@ -80,13 +84,13 @@ const ChannelChat = () => {
                                                 <li
                                                     key={msg.id}
                                                     className="my_messages">
-                                                    <div className='d-flex justify-content-end'>{msg.username}</div>
-                                                    <div className='row'><div className='col-2'>{msg.date}</div> <div className='d-flex justify-content-center align-self-center col-10'>{msg.msg}</div></div>
+                                                    {msg.username}: <br />
+                                                    {msg.msg} <span className='justify-content-end'>{msg.date}</span>
                                                 </li>
                                                 :
                                                 <li key={msg.id} className="other_messages">
-                                                    <div className='d-flex justify-content-start'>{msg.username}</div>
-                                                    <div className='row'> <div className='d-flex justify-content-center align-self-center col-10'>{msg.msg}</div><div className='col-2'>{msg.date}</div></div>
+                                                    {msg.username}: <br />
+                                                    {msg.msg}, {msg.date}
                                                 </li>
                                             }
                                         </div>

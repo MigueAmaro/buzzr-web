@@ -15,11 +15,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 			messages: JSON.parse(localStorage.getItem("messages")) || [],
 			allUsers: JSON.parse(localStorage.getItem("allUsers")) || [],
 			channels: JSON.parse(localStorage.getItem("channels")) || [],
-			channelUsers: JSON.parse(localStorage.getItem("channelUsers")) || []
+			channelUsers: JSON.parse(localStorage.getItem("channelUsers")) || [],
+			isLogin: localStorage.getItem("token") !== "" ? false : true ,
 		},
 
 		actions: {
-
+			handleIsLogin: () =>{
+				const store = getStore()
+				setStore({
+					...store,
+					isLogin: true
+				})
+			},
 			handleLogin: async (login) => {
 				const store = getStore();
 				const actions = getActions();

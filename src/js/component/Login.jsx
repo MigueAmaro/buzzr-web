@@ -12,6 +12,10 @@ const Login = () => {
 		password: ""
 	})
 
+    const handleRedirect = async () =>{
+        actions.handleLogin(login)
+        navegar("/channelchat/Welcome")
+    }
 
     return (
         <>
@@ -57,7 +61,7 @@ const Login = () => {
                                 type="button"
                                 className="btn btn-success"
                                 data-bs-dismiss="modal"
-                                onClick={() => { actions.handleLogin(login), navegar("/channelchat/Welcome")}}>Log in</button>
+                                onClick={() => { handleRedirect()}}>Log in</button>
                         </div>
                     </div>
                 </div>

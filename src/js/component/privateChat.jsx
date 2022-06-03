@@ -85,11 +85,13 @@ const PrivateChat = () => {
                                         <div>
                                             {store.userInfo.username == msg.username_from ? (
                                                 <li key={msg.id} className="my_messages">
-                                                    {msg.username_from}: {msg.msg}, {msg.date}
+                                                    {msg.username_from}: <br/>
+                                                    {msg.msg}, {msg.date}
                                                 </li>
                                             ) : (
                                                 <li key={msg.id} className="other_messages">
-                                                    {msg.username_from}: {msg.msg}, {msg.date}
+                                                    {msg.username_from}: <br/>
+                                                    {msg.msg}, {msg.date}
                                                 </li>
                                             )}
                                         </div>
