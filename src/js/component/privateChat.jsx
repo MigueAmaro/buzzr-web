@@ -82,7 +82,7 @@ const PrivateChat = () => {
                             {store.messages.length > 0 &&
                                 store.messages.map((msg) => {
                                     return (
-                                        <div>
+                                        <div key={Math.random() + Math.random()}>
                                             {store.userInfo.username == msg.username_from ? (
                                                 <li key={msg.id} className="my_messages">
                                                     {msg.username_from}: <br/>

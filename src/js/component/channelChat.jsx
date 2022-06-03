@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import io from "socket.io-client";
 import { useParams } from "react-router";
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useRef } from 'react';
 import { Context } from '../store/appContext';
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
@@ -16,6 +16,8 @@ const ChannelChat = () => {
     const [message, setMessage] = useState("")
     const [messages, setMessages] = useState([""])
     let params = useParams()
+
+    const listInnerRef = useRef(null);
 
     const handleKeyDown = (event) => {
         if (event.key == "Enter") {
@@ -43,6 +45,7 @@ const ChannelChat = () => {
             actions.handleMessages(channel)
         }
         actions.handleChannelUsers(channel)
+        listInnerRef.current.scrollIntoView(null)
     }
 
     useEffect(() => {
@@ -79,7 +82,7 @@ const ChannelChat = () => {
                             {store.messages.length > 0 &&
                                 store.messages.map((msg) => {
                                     return (
-                                        <div>
+                                        <div key={Math.random() + Math.random()}>
                                             {store.userInfo.username == msg.username ?
                                                 <li
                                                     key={msg.id}
@@ -96,6 +99,7 @@ const ChannelChat = () => {
                                         </div>
                                     )
                                 })}
+                            <div id='final' ref={listInnerRef}></div>
                         </ul>
                     </div>
                     <div className='col-2 channels_and_users'>
