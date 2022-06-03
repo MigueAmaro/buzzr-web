@@ -1,6 +1,19 @@
 /* 
     General Styles
 */
+
+.form-control{
+    border: 0px;
+    border-bottom: 1px solid white;
+}
+.edit_form{
+    color: white;
+    height: 80vh;
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    padding-top: 50px;
+}
 .channel_view{
     display: flex;
     flex-direction: row;
