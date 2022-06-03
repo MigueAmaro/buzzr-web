@@ -45,7 +45,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						socket.emit("login", data.username)
 						actions.handleUser()
 						actions.handleAllUsers()
-						actions.createChannel(Welcome)
+						actions.handleChannels()
 					}
 				} catch (error) {
 					console.log(error)
@@ -108,6 +108,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.removeItem("id")
 				localStorage.removeItem("userInfo")
 				localStorage.removeItem("messages")
+				localStorage.removeItem("channels")
 			},
 
 			checkEmail: (correo) => {
@@ -168,23 +169,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			transformDate: async (messages) => {
 				let store = getStore()
-					let localDateMessages = [];
-					try {
-						for (let message of messages) {
-							let fecha = new Date(message.date)
-							let newDate = fecha.toLocaleTimeString();
-							message.date = newDate
-							localDateMessages.push(message)
-						}
-						localDateMessages.sort((a, b) => a.id - b.id)
-						setStore({
-							...store,
-							messages: localDateMessages
-						})
-
-					} catch (error) {
-						console.log(error)
+				let localDateMessages = [];
+				try {
+					for (let message of messages) {
+						let fecha = new Date(message.date)
+						let newDate = fecha.toLocaleTimeString();
+						message.date = newDate
+						localDateMessages.push(message)
 					}
+					localDateMessages.sort((a, b) => a.id - b.id)
+					setStore({
+						...store,
+						messages: localDateMessages
+					})
+
+				} catch (error) {
+					console.log(error)
+				}
 			},
 
 			handleAllUsers: async () => {
@@ -294,19 +295,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error)
 				}
 			},
-			handleChannelUsers: async (channelname) =>{
+			handleChannelUsers: async (channelname) => {
 				let store = getStore()
 				let actions = getActions()
-				try{
+				try {
 					let response = await fetch(`${store.urlBase}/user/${channelname}`)
-					if(response.ok){
+					if (response.ok) {
 						let data = await response.json()
 						setStore({
 							...store,
 							channelUsers: data
 						})
 					}
-				}catch(error){
+				} catch (error) {
 					console.log(error)
 				}
 			}

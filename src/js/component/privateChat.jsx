@@ -19,7 +19,6 @@ const PrivateChat = () => {
 
     const getMessages = () => {
         privateSocket.on("new_private_msg", (msg) => {
-            console.log("nothing to see here")
             setMessages([...messages, msg]);
         });
         actions.handlePrivateMessages(params.username)
