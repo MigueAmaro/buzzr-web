@@ -45,6 +45,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						socket.emit("login", data.username)
 						actions.handleUser()
 						actions.handleAllUsers()
+						actions.handleChannels()
 					}
 				} catch (error) {
 					console.log(error)
@@ -107,6 +108,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.removeItem("id")
 				localStorage.removeItem("userInfo")
 				localStorage.removeItem("messages")
+				localStorage.removeItem("channels")
 			},
 
 			checkEmail: (correo) => {

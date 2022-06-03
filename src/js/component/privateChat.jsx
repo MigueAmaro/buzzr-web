@@ -12,15 +12,14 @@ let privateSocket = io.connect(`${endPoint}`);
 
 const PrivateChat = () => {
     const { store, actions } = useContext(Context)
+    let params = useParams()
 
     const [messages, setMessages] = useState(["Hello And Welcome"]);
     const [message, setMessage] = useState("");
 
-    let params = useParams()
-
     const getMessages = () => {
+        actions.handlePrivateMessages(params.id)
         privateSocket.on("new_private_msg", (msg) => {
-            console.log("nothing to see here")
             setMessages([...messages, msg]);
         });
         actions.handlePrivateMessages(params.username)
@@ -29,7 +28,6 @@ const PrivateChat = () => {
     // On Change
     const onChange = (e) => {
         setMessage(e.target.value);
-
     };
 
     // On Enter
