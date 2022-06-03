@@ -45,6 +45,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						socket.emit("login", data.username)
 						actions.handleUser()
 						actions.handleAllUsers()
+						actions.createChannel(Welcome)
 					}
 				} catch (error) {
 					console.log(error)
