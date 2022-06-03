@@ -58,7 +58,7 @@ const PrivateChat = () => {
     return (
         <>
             <div>
-                <Helmet>
+                <Helmet title={params.username}>
                     <style>{'body {background-color: rgba(33,37,41);}'}</style>
                 </Helmet>
                 <div className='channel_title'>

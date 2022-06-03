@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext.js";
 import { useNavigate } from "react-router";
+import buzzrLogo from "../../../docs/assets/Buzzr.png"
 
 import CreateChannel from "./createChannel.jsx";
 
@@ -14,7 +15,7 @@ export const Navbar = () => {
 
 		<nav className="navbar navbar-dark bg-dark container d-flex flex-column flex-md-row justify-content-between">
 			<Link to="/channelchat/Welcome">
-				<span className="navbar-brand mb-0 h1">Buzzr</span>
+				<img width="150px" height="80px" src={buzzrLogo}/>
 			</Link>
 
 			<div className="ml-auto">

@@ -21,7 +21,7 @@ export const Home = () => {
     <>
       {store.token == "" ? (
         <div>
-          <Helmet>
+          <Helmet title="BuzzrApp">
             <style>{"body {background-color: white;}"}</style>
           </Helmet>
           <div className="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
