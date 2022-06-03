@@ -44,8 +44,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						localStorage.setItem("userInfo", JSON.stringify(data))
 						socket.emit("login", data.username)
 						actions.handleUser()
-						actions.handleAllUsers()
-						actions.handleChannels()
+						// actions.handleChannels()
+						actions.checkChannels()
 					}
 				} catch (error) {
 					console.log(error)
@@ -94,6 +94,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 							console.log(error)
 						}
 					}
+				}
+			},
+
+			checkChannels: () => {
+				let store = getStore()
+				let actions =getActions()
+				if(store.channels.length < 1){
+					actions.createChannel("Welcome")
+					actions.handleChannels()
+				}
+				else{
+					actions.handleChannels()
 				}
 			},
 

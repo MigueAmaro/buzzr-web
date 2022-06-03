@@ -8,7 +8,6 @@ import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import UserInfo from "./component/UserInfo.jsx";
-import Chat from "./component/chat.jsx";
 import PrivateChat from "./component/privateChat.jsx";
 import ChannelChat from "./component/channelChat.jsx";
 import NotFound from "./views/404.js"
@@ -26,7 +25,6 @@ const Layout = () => {
 					<Navbar />
 					<Routes>
 						<Route path="/" element={<Home />} />
-						<Route path="/chat" element={<Chat />} />
 						<Route path="/privatechat/:username" element={<PrivateChat />} />
 						<Route path="/profile" element={<UserInfo />} />
 						<Route path="/channelchat/:name" element={<ChannelChat/>}/>

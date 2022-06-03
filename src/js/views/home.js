@@ -1,13 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import Login from "../component/Login.jsx";
 import Register from "../component/Register.jsx";
 import { Helmet } from "react-helmet";
+import ChannelChat from "../component/channelChat.jsx";
 
 export const Home = () => {
-  const { store } = useContext(Context);
+  const { store, actions } = useContext(Context);
   return (
     <>
       {store.token == "" ? (
@@ -135,7 +136,7 @@ export const Home = () => {
         <div>
           {/* <Chat /> */}
           {/* <PrivateChat /> */}
-          <ul>
+          {/* <ul>
             <li>Channels</li>
             {store.channels.map((channel) => {
               return (
@@ -146,7 +147,8 @@ export const Home = () => {
                 </li>
               );
             })}
-          </ul>
+          </ul> */}
+          <ChannelChat/>
         </div>
       )}
     </>
