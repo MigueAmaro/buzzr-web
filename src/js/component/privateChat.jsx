@@ -3,6 +3,7 @@ import io from "socket.io-client";
 import { Context } from "../store/appContext"
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 
 const endPoint = process.env.ENDPOINT;
@@ -56,36 +57,73 @@ const PrivateChat = () => {
 
     return (
         <>
-            <div className="d-flex">
-                <ul>
-                    <li>Channels</li>
-                    {store.channels.map((channel) => {
-                        return (
-                            <li key={channel.id}><Link onClick={() => { getMessages(channel.name) }} to={`/channelchat/${channel.name}`}>{channel.name}</Link></li>
-                        )
-                    })}
-                </ul>
-                <ul>
-                    {store.messages.length > 0 &&
-                        store.messages.map((msg) => {
-                            return (
-                                <li key={msg.id}>
-                                    {msg.username_from}: {msg.msg}, {msg.date}
-                                </li>
-                            )
-                        }
+            <div>
+                <Helmet>
+                    <style>{'body {background-color: rgba(33,37,41);}'}</style>
+                </Helmet>
+                <div className='channel_title'>
+                    <h3 className="m-0">{params.username}</h3>
+                </div>
 
-                        )}
-                </ul>
+                <div className="channel_view">
+                    <div className="col-2 channels_and_users">
+                        <ul>
+                            <li>Channels</li>
+                            {store.channels.map((channel) => {
+                                return (
+                                    <li key={channel.id}><Link onClick={() => { getMessages(channel.name) }} to={`/channelchat/${channel.name}`}>{channel.name}</Link></li>
+                                )
+                            })}
+                        </ul>
+                    </div>
+
+                    <div className="bg-dark col-8 chat_body">
+                        <ul>
+                            {store.messages.length > 0 &&
+                                store.messages.map((msg) => {
+                                    return (
+                                        <div>
+                                            {store.userInfo.username == msg.username_from ? (
+                                                <li key={msg.id} className="my_messages">
+                                                    {msg.username_from}: {msg.msg}, {msg.date}
+                                                </li>
+                                            ) : (
+                                                <li key={msg.id} className="other_messages">
+                                                    {msg.username_from}: {msg.msg}, {msg.date}
+                                                </li>
+                                            )}
+                                        </div>
+                                    )
+                                })}
+                        </ul>
+                    </div>
+
+                    <div className="col-2 channels_and_users">
+                        <ul>
+                            <li>User</li>
+                            <li>{params.username}</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <p className="mt-2">Message</p>
-            <input
-                value={message}
-                name="message"
-                onChange={(e) => onChange(e)}
-                onKeyDown={(event) => handleKeyDown(event)}
-            />
-            <button onClick={() => onClick()}>Send Message</button>
+            <div className="channel_view">
+                <div className="col-2"></div>
+                <div className='col-8 d-flex justify-content-center align-items-end'>
+                    <input
+                        value={message}
+                        name="message"
+                        className='chat_input col-10 mt-4'
+                        onChange={(e) => onChange(e)}
+                        onKeyDown={(event) => handleKeyDown(event)}
+                    />
+                    <button
+                    className='send_button btn btn-outline-primary' 
+                    onClick={() => onClick()}>
+                        <i className="far fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div className="col-2"></div>
+            </div>
         </>
     );
 };

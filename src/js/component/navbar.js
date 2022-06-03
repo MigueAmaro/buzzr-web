@@ -12,8 +12,8 @@ export const Navbar = () => {
 		<>
 		{store.token?.length > 0 ? (
 
-		<nav className="navbar navbar-dark bg-dark mb-3 container d-flex flex-column flex-md-row justify-content-between">
-			<Link to="/">
+		<nav className="navbar navbar-dark bg-dark container d-flex flex-column flex-md-row justify-content-between">
+			<Link to="/channelchat/Welcome">
 				<span className="navbar-brand mb-0 h1">Buzzr</span>
 			</Link>
 

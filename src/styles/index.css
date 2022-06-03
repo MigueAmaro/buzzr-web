@@ -1,7 +1,9 @@
 /* 
     General Styles
 */
-
+.footer{
+    color: white;
+}
 .form-control{
     border: 0px;
     border-bottom: 1px solid white;
@@ -74,13 +76,12 @@
     background-color: lightgray;
     border-radius: 30px;
     margin-right: 5px;
-    margin-top: 5px;
 }
 
 .channel_title {
     background-color: #26272b;
     color: white;
-    padding: 20px;
+    padding: 20px 0px 20px 20px;
 }
 
 .chat_body{

@@ -5,7 +5,7 @@ import { useParams } from "react-router";
 import { useEffect, useContext } from 'react';
 import { Context } from '../store/appContext';
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet"
+import { Helmet } from "react-helmet";
 
 
 const endPoint = process.env.ENDPOINT;
@@ -52,9 +52,10 @@ const ChannelChat = () => {
                 <Helmet>
                     <style>{'body {background-color: rgba(33,37,41);}'}</style>
                 </Helmet>
-                <div className='channel_title'>
-                    <h2>{params.name}</h2>
-                </div>
+
+                    <div className="channel_title">
+                        <h3 className="m-0">Channel: {params.name}</h3>
+                    </div>
 
                 <div className='channel_view'>
 
@@ -76,7 +77,9 @@ const ChannelChat = () => {
                                     return (
                                         <div>
                                             {store.userInfo.username == msg.username ?
-                                                <li key={msg.id} className="my_messages">
+                                                <li
+                                                    key={msg.id}
+                                                    className="my_messages">
                                                     <div className='d-flex justify-content-end'>{msg.username}</div>
                                                     <div className='row'><div className='col-2'>{msg.date}</div> <div className='d-flex justify-content-center align-self-center col-10'>{msg.msg}</div></div>
                                                 </li>

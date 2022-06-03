@@ -1,8 +1,10 @@
 import React, {useState, useContext} from 'react';
 import { Context } from "./../store/appContext";
+import { useNavigate } from "react-router";
 
 const Login = () => {
 
+    let navegar = useNavigate()
     const { actions } = useContext(Context)
 
 	const [login, setLogin] = useState({
@@ -55,7 +57,7 @@ const Login = () => {
                                 type="button"
                                 className="btn btn-success"
                                 data-bs-dismiss="modal"
-                                onClick={() => { actions.handleLogin(login) }}>Log in</button>
+                                onClick={() => { actions.handleLogin(login), navegar("/channelchat/Welcome")}}>Log in</button>
                         </div>
                     </div>
                 </div>

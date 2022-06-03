@@ -1,13 +1,22 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
 import Login from "../component/Login.jsx";
 import Register from "../component/Register.jsx";
 import { Helmet } from "react-helmet";
+import ChannelChat from "../component/channelChat.jsx"
+import { useNavigate } from "react-router";
 
 export const Home = () => {
   const { store } = useContext(Context);
+  let navegar = useNavigate()
+
+  useEffect(() =>{
+    {store.token.length > 0 ? (
+      navegar("/channelchat/Welcome")
+    ) : ""}
+  }, [])
+
   return (
     <>
       {store.token == "" ? (
@@ -114,40 +123,9 @@ export const Home = () => {
 
             <hr className="featurette-divider" />
           </div>
-
-          {/* <div className="container mt-5">
-            <h1>Get started with Bootstrap</h1>
-            <p className="fs-5 col-md-8">
-              Quickly and easily get started with Bootstrap's compiled,
-              production-ready files with this barebones example featuring some
-              basic HTML and helpful links. Download all our examples to get
-              started.
-            </p>
-
-            <div className="mb-5">
-              <a href="/" className="btn btn-primary btn-lg px-4">
-                Download examples
-              </a>
-            </div>
-          </div> */}
         </div>
       ) : (
-        <div>
-          {/* <Chat /> */}
-          {/* <PrivateChat /> */}
-          <ul>
-            <li>Channels</li>
-            {store.channels.map((channel) => {
-              return (
-                <li key={channel.id}>
-                  <Link to={`/channelchat/${channel.name}`}>
-                    {channel.name}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+        <ChannelChat name="Welcome" />
       )}
     </>
   );

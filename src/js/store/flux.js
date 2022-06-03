@@ -46,6 +46,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						actions.handleUser()
 						actions.handleAllUsers()
 						actions.handleChannels()
+						actions.handleMessages("Welcome")
 					}
 				} catch (error) {
 					console.log(error)
