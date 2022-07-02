@@ -31,7 +31,7 @@ const Register = () => {
 	return (
 		<>
 			<div className="btn-group">
-				<button type="button" className="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+				<button type="button" className="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 					Sign Up
 				</button>
 				<div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

@@ -1,8 +1,10 @@
 import React, {useState, useContext} from 'react';
 import { Context } from "./../store/appContext";
+import { useNavigate } from "react-router";
 
 const Login = () => {
 
+    let navegar = useNavigate()
     const { actions } = useContext(Context)
 
 	const [login, setLogin] = useState({
@@ -10,11 +12,15 @@ const Login = () => {
 		password: ""
 	})
 
+    const handleRedirect = async () =>{
+        actions.handleLogin(login)
+        navegar("/channelchat/Welcome")
+    }
 
     return (
         <>
             {/* Button trigger modal Login */}
-            <button type="button" className="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" className="btn btn-outline-secondary m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Log in
             </button>
 
@@ -55,7 +61,7 @@ const Login = () => {
                                 type="button"
                                 className="btn btn-success"
                                 data-bs-dismiss="modal"
-                                onClick={() => { actions.handleLogin(login) }}>Log in</button>
+                                onClick={() => { handleRedirect()}}>Log in</button>
                         </div>
                     </div>
                 </div>

@@ -1,13 +1,32 @@
 /* 
     General Styles
 */
-
-.form-login-register{
+.footer{
+    color: white;
+}
+.form-control{
+    border: 0px;
+    border-bottom: 1px solid white;
+}
+.edit_form{
+    color: white;
+    height: 80vh;
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    padding-top: 50px;
+}
+.channel_view{
+    display: flex;
+    flex-direction: row;
+}
+.form-login-register {
     margin: 0px;
     width: 100%;
     padding: 10px;
 }
-.input-login-register{
+
+.input-login-register {
     padding: 0px;
     width: 95%;
     margin-top: 10px;
@@ -15,9 +34,67 @@
     border-bottom: 1px solid black;
     outline: none;
 }
-.login-title{
+
+.login-title {
     font-weight: bold;
     padding: 0px;
     margin: 0px;
     margin-top: 10px;
+}
+
+.my_messages {
+    list-style: none;
+    color: white;
+    background-color: #26272b;
+    font-size: .8em;
+    line-height: 1.75;
+    padding: 15px 25px;
+    margin-bottom: 15px;
+    cursor: default;
+    margin-left: 300px;
+    border-left: 5px green solid;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.other_messages {
+    list-style: none;
+    color: white;
+    background-color: #26272b;
+    font-size: .8em;
+    line-height: 1.75;
+    padding: 15px 25px;
+    margin-bottom: 15px;
+    cursor: default;
+    margin-right: 300px;
+    border-right: 5px blue solid;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.chat_input {
+    background-color: lightgray;
+    border-radius: 30px;
+    margin-right: 5px;
+}
+
+.channel_title {
+    background-color: #26272b;
+    color: white;
+    padding: 20px 0px 20px 20px;
+}
+
+.chat_body{
+    overflow-y: scroll;
+    height: 525px;
+}
+
+.channels_and_users{
+    background-color: #26272b;
+    color: white;
+    list-style: none;
+}
+
+.send_button{
+    height: 40px;
 }
